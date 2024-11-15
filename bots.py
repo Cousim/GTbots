@@ -5,7 +5,20 @@ class Bot:
     def __init__(self, budget):
         self.budget = budget
         self.history = []
+        self.results = None
+        self.game_length = None
+        self.commitment = None
+        self.punishment = None
+        self.observation_cost = None
         self.P1 = False
+
+    def rules(self, results, game_length, commitment, punishment, observation_cost, P1):
+        self.results = results
+        self.game_length = game_length
+        self.commitment = commitment
+        self.punishment = punishment
+        self.observation_cost = observation_cost
+        self.P1 = P1
 
     def setP1(self, flag):
         self.P1 = flag
@@ -26,10 +39,16 @@ class Bot:
         return self.budget
 
 class AlwaysDefect(Bot):
+    def getCommitment(self):
+        return "D"
+    
     def nextMove(self):
         return "D"
 
 class AlwaysCooperate(Bot):
+    def getCommitment(self):
+        return "C"
+    
     def nextMove(self):
         return "C"
 

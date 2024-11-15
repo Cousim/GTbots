@@ -14,7 +14,6 @@ players = [PB , RB]
 players[0].setP1(True)
 
 results = {"CC": (3,3),"DC":(5,0),"CD":(0,5),"DD":(1,1)}
-history = []
 payoff1 = None
 payoff2 = None
 
