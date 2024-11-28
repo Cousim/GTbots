@@ -3,7 +3,7 @@ import random
 from Interfaces import Bilateral, ObservationCost, Mixed
 import Bot
 
-class BilateralOpenMixed(Bot, Bilateral, ObservationCost, Mixed):
+class BilateralOCostMixed(Bot, Bilateral, ObservationCost, Mixed):
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, payProb, opponentCommitProb, seed):
         Bot.__init__(mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb)
         Bilateral.__init__()

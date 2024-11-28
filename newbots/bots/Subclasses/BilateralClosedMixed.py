@@ -1,9 +1,7 @@
-import random
-
 from Interfaces import Bilateral, Closed, Mixed
 import Bot
 
-class BilateralOpenMixed(Bot, Bilateral, Closed, Mixed):
+class BilateralClosedMixed(Bot, Bilateral, Closed, Mixed):
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, opponentCommitProb, seed):
         Bot.__init__(mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb)
         Bilateral.__init__()
@@ -15,8 +13,8 @@ class BilateralOpenMixed(Bot, Bilateral, Closed, Mixed):
 
 
     def assumeOpponentCommit(self):
-        pass
+        self.opponentCommitProb = self.assumeOpponentCommit
 
     def inTurn(self):
-        self.mostCoopStrategy().play
+        self.mostCoopStrategy.play()
     

@@ -1,14 +1,14 @@
-from Interfaces import UnilateralGame, OpenGame, MixedGame
+from Interfaces import UnilateralGame, ClosedGame, MixedGame
 import Game
 import random
 
 import bots
 
-class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
+class UnilateralClosedMixedGame(Game, UnilateralGame, ClosedGame, MixedGame):
     def __init__(self, bot1, bot2, bot1PayoffMatrix, bot2PayoffMatrix, game_length, commitment, punishment):
         Game.__init__(bot1, bot2, bot1PayoffMatrix, bot2PayoffMatrix, game_length, commitment, punishment)
         UnilateralGame.__init__()
-        OpenGame.__init__()
+        ClosedGame.__init__()
         MixedGame.__init__(self)
     
     def takeUnilateralCommitment(self):
@@ -39,9 +39,9 @@ class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
 
 
     
-    def setOpponentCommitment(self):
-        if (self.bot1.makeCommitment) : self.bot2.opponentCommitProb = self.bot1.coopCommitProb
-        else : self.bot1.opponentCommitType = self.bot2.commitType
+    def assumeOpponentCommitment(self):
+        if (self.bot1.makeCommitment) : self.bot2.assumeOpponentCommit()
+        else : self.bot1.assumeOpponentCommit()
 
 
     def rounds(self):
@@ -82,5 +82,5 @@ class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
 
     def gametime(self):
         self.takeUnilateralCommitment()
-        self.setOpponentCommitment()
+        self.assumeOpponentCommitment()
         self.rounds()

@@ -44,14 +44,19 @@ class BilateralClosedDeterministicGame(Game, BilateralGame, ClosedGame, Determin
             bot1Move = self.bot1.inTurn()
             bot2Move = self.bot2.inTurn()
 
-            self.bot1.history.append(bot1Move) #adds self move in the even indexes starting w/ 0
-            self.bot1.history.append(bot2Move)
+            self.bot1.history.append(("C" if bot1Move else "D")) #adds self move in the even indexes starting w/ 0
+            self.bot1.history.append(("C" if bot2Move else "D"))
 
-            self.bot2.history.append(bot2Move)
-            self.bot2.history.append(bot1Move)
+            self.bot2.history.append(("C" if bot2Move else "D"))
+            self.bot2.history.append(("C" if bot1Move else "D"))
 
 
             self.checkCommitmentAndPayoff(self, i)
+            print("This round moves: "+self.bot1.history.get(i)+self.bot1.history.get(i+1))
+            print("Round "+i+
+                  self.bot1.budget)
+            print("Round "+i+
+                  self.bot1.budget)
 
         self.bot1.history = []
         self.bot2.history = []

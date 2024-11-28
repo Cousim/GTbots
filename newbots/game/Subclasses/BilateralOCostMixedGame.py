@@ -1,26 +1,17 @@
-from Interfaces import UnilateralGame, OpenGame, MixedGame
+from Interfaces import BilateralGame, OCostGame, MixedGame
 import Game
 import random
 
 import bots
 
-class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
-    def __init__(self, bot1, bot2, bot1PayoffMatrix, bot2PayoffMatrix, game_length, commitment, punishment):
+class BilateralOCostMixedGame(Game, BilateralGame, OCostGame, MixedGame):
+    def __init__(self, bot1, bot2, bot1PayoffMatrix, bot2PayoffMatrix, game_length, commitment, punishment, observation_cost):
         Game.__init__(bot1, bot2, bot1PayoffMatrix, bot2PayoffMatrix, game_length, commitment, punishment)
-        UnilateralGame.__init__()
-        OpenGame.__init__()
+        BilateralGame.__init__()
+        OCostGame.__init__(observation_cost)
         MixedGame.__init__(self)
     
-    def takeUnilateralCommitment(self):
-        if (random.randRange(1, 101)<51) :
-            self.bot1.makeCommitment = True
-        else :
-            self.bot2.makeCommitment = True
-
-        bot1Commitment = self.bot1.makeCommitment
-        bot2Commitment = self.bot2.makeCommitment
-
-        if (bot1Commitment) :
+    def takeBilateralCommitment(self):
             bot1CommitProb, bot1Seed = self.bot1.makeMixedCommitment()
             random.seed(bot1Seed)
             for i in range(self.game_length):
@@ -28,7 +19,6 @@ class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
                         self.bot1CommitMoves.append("C")
                 else : 
                     self.bot1CommitMoves.append("D")
-        if (bot2Commitment) :
             bot2CommitProb, bot2Seed = self.bot2.makeMixedCommitment()
             random.seed(bot1Seed)
             for i in range(self.game_length):
@@ -37,11 +27,31 @@ class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
                 else : 
                     self.bot2CommitMoves.append("D")
 
+        
+    def payForCommitment(self):
+        bot1pays = self.bot1.payCommitment()
+        bot2pays = self.bot2.payCommitment()
+        
+        
+        if (bot1pays) :
+            self.bot1.budget -= self.observation_cost
+            self.bot1.opponentCommitType = self.bot2.commitType
+        else : 
+            self.bot1.assumeOpponentCommit()
 
-    
+        if (bot2pays) :
+            self.bot2.budget -= self.observation_cost
+            self.bot2.opponentCommitType = self.bot1.commitType
+        else : 
+            self.bot2.assumeOpponentCommit()
+
     def setOpponentCommitment(self):
         if (self.bot1.makeCommitment) : self.bot2.opponentCommitProb = self.bot1.coopCommitProb
         else : self.bot1.opponentCommitType = self.bot2.commitType
+
+    def assumeOpponentCommitment(self):
+        if (self.bot1.makeCommitment) : self.bot2.assumeOpponentCommit()
+        else : self.bot1.assumeOpponentCommit()
 
 
     def rounds(self):
@@ -81,6 +91,6 @@ class UnilateralOpenMixedGame(Game, UnilateralGame, OpenGame, MixedGame):
 
 
     def gametime(self):
-        self.takeUnilateralCommitment()
-        self.setOpponentCommitment()
+        self.takeBilateralCommitment()
+        self.payForCommitment()
         self.rounds()

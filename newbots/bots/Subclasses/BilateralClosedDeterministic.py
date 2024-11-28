@@ -1,6 +1,6 @@
 import random
 
-from Interfaces import Bilateral, Closed, Deterministic
+from ..Interfaces import Bilateral, Closed, Deterministic
 import Bot
 
 
