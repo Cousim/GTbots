@@ -17,10 +17,10 @@ class UnilateralOpenDeterministic(Bot, Unilateral, Open, Deterministic):
         if (self.makeCommitment):
             if (random.randrange(1,101) < self.coopCommitProb) : 
                 self.setCommitType(True)
-                return None #return cooperation commitment if true
+                return self.commitType #return cooperation commitment if true
             else : 
                 self.setCommitType(False)
-                return None #return defection commitment if false
+                return self.commitType #return defection commitment if false
         else :
             pass
 

@@ -8,6 +8,6 @@ class Randomized(Strategy):
         Strategy.__init__()
         self.prob = prob
 
-    def play(botHistory, botBudget):
+    def play(self, botHistory, botBudget):
         if (random.randrange(0,101)<self.prob) : return True
         else : return False

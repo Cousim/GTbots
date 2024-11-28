@@ -4,23 +4,18 @@ from Interfaces import Bilateral, Open, Mixed
 import Bot
 
 class BilateralOpenMixed(Bot, Bilateral, Open, Mixed):
-    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, coopCommitProb, budget, opponentCommitProb):
+    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, opponentCommitProb, seed):
         Bot.__init__(mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb)
         Bilateral.__init__()
         Open.__init__()
-        Mixed.__init__(opponentCommitProb)
+        Mixed.__init__(opponentCommitProb, seed)
 
     def makeMixedCommitment(self):
-        return self.coopCommitProb
+        return self.coopCommitProb, self.seed
 
     def setOpponentCoopCommit(self, opponentCommitProb):
         self.opponentCommitProb = opponentCommitProb
 
-    #mixed bots wont have strategies i guess???
-    '''
     def inTurn(self):
-        if (self.commitType & self.opponentCoopCommitType) : self.mostCoopStrategy.play() # both coop commit
-        elif (self.commitType &  (not self.opponentCoopCommitType)) : self.lessCoopStrategy.play() # self coop commit
-        elif ((not self.coopCommit) == 0 & self.opponentCoopCommit == 100) : self.lessDefectStrategy.play() # self defect commit
-        else : self.mostDefectStrategy.play() # both defect commit
-    '''
+        self.mostCoopStrategy().play
+    

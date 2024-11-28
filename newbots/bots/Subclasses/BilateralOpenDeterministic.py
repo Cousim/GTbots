@@ -16,10 +16,10 @@ class BilateralOpenDeterministic(Bot, Bilateral, Open):
     def makeCommitment(self):
         if (random.randrange(1,101) < self.coopCommitProb) : 
             self.setCommitType(True)
-            return None #return cooperation commitment if true
+            return self.commitType #return cooperation commitment if true
         else : 
             self.setCommitType(False)
-            return None #return defection commitment if false
+            return self.commitType #return defection commitment if false
 
     def setOpponentCoopCommit(self, opponentCoopCommit):
         self.opponentCoopCommit = opponentCoopCommit

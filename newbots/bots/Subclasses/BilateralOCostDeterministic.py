@@ -16,14 +16,14 @@ class BilateralOCostDeterministic(Bot, Bilateral, ObservationCost, Deterministic
     def makeCommitment(self):
         if (random.randrange(1,101) < self.coopCommitProb) : 
             self.setCommitType(True)
-            return None #return cooperation commitment if true
+            return self.commitType #return cooperation commitment if true
         else : 
             self.setCommitType(False)
-            return None #return defection commitment if false
+            return self.commitType #return defection commitment if false
 
     def payObservationCost(self):
-        if (random.randrange(1,101) <= self.payProb) : self.setOpponentCoopCommit()
-        else : self.assumeOpponentCommit()
+        if (random.randrange(1,101) <= self.payProb) : return True
+        else : return False
 
 
     def assumeOpponentCommit(self):

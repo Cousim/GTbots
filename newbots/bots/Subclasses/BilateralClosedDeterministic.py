@@ -22,10 +22,10 @@ class BilateralClosedDeterministic(Bot, Bilateral, Closed, Deterministic):
     def makeCommitment(self):
         if (random.randrange(1,101) < self.coopCommitProb) : 
             self.setCommitType(True)
-            return None #return cooperation commitment if true
+            return self.commitType #return cooperation commitment if true
         else : 
             self.setCommitType(False)
-            return None #return defection commitment if false
+            return self.commitType #return defection commitment if false
 
     def inTurn(self):
         if (self.commitType & self.opponentCoopCommitType) : self.mostCoopStrategy.play(self.history, self.budget) # both coop commit
