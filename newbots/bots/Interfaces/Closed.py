@@ -1,6 +1,6 @@
 class Closed():
-    def __init__(self, assumeCommit):
-        self.assumeCommit = assumeCommit
+    def __init__(self, assumeCommitProb):
+        self.assumeCommitProb = assumeCommitProb
 
-    def assumeOpponentCommit(assumeCommit):
+    def assumeOpponentCommit(assumeCommitProb):
         pass
