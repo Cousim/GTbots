@@ -1,9 +1,4 @@
-from Interfaces import BilateralGame, OCostGame, DeterministicGame
-import Game
-
-import bots
-
-class BilateralOCostDeterministicGame(Game, BilateralGame, OCostGame, DeterministicGame):
+class BilateralOCostDeterministicGame():
     def __init__(self, bot1, bot2, bot1PayoffMatrix, bot2PayoffMatrix, game_length, commitment, punishment, observation_cost):
         self.bot1 = bot1
         self.bot2 = bot2

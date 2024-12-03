@@ -48,7 +48,7 @@ bilateralOCostDeterministicGame = BilateralOCostDeterministicGame(
     game_length=7, 
     commitment=+1, 
     punishment=-1, 
-    obervation_cost=3  # Add observation cost parameter
+    observation_cost=3  # Add observation cost parameter
 )
 
 # Run the game

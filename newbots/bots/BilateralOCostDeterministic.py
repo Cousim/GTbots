@@ -10,7 +10,7 @@ class BilateralOCostDeterministic():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.assumeCommit = assumeCommitProb
+        self.assumeCommitProb = assumeCommitProb
         self.payProb = payProb
         self.commitType = commitType #true for coop, false for defect
         self.opponentCoopCommitType = opponentCoopCommitType
@@ -41,9 +41,9 @@ class BilateralOCostDeterministic():
         self.opponentCoopCommitType = opponentCoopCommitType
 
     def inTurn(self, roundNum):
-        if (self.commitType & self.opponentCoopCommitType) : return self.mostCoopStrategy.play(self.history, self.budget, roundNum) # both coop commit
-        elif (self.commitType &  (not self.opponentCoopCommitType)) : return self.lessCoopStrategy.play(self.history, self.budget, roundNum) # self coop commit
-        elif ((not self.coopCommit) == 0 & self.opponentCoopCommit == 100) : return self.lessDefectStrategy.play(self.history, self.budget, roundNum) # self defect commit
-        else : return self.mostDefectStrategy.play(self.history, self.budget, roundNum) # both defect commit
+        if (self.commitType & self.opponentCoopCommitType) : return self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
+        elif (self.commitType &  (not self.opponentCoopCommitType)) : return self.lessCoopStrat.play(self.history, self.budget, roundNum) # self coop commit
+        elif ((not self.coopCommitProb) == 0 & self.opponentCoopCommit == 100) : return self.lessDefectStrat.play(self.history, self.budget, roundNum) # self defect commit
+        else : return self.mostDefectStrat.play(self.history, self.budget, roundNum) # both defect commit
 
 
