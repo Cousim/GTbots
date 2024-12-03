@@ -43,7 +43,7 @@ class BilateralOCostDeterministic():
     def inTurn(self, roundNum):
         if (self.commitType & self.opponentCoopCommitType) : return self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
         elif (self.commitType &  (not self.opponentCoopCommitType)) : return self.lessCoopStrat.play(self.history, self.budget, roundNum) # self coop commit
-        elif ((not self.coopCommitProb) == 0 & self.opponentCoopCommit == 100) : return self.lessDefectStrat.play(self.history, self.budget, roundNum) # self defect commit
+        elif ((not self.coopCommitProb) == 0 & self.opponentCoopCommitType) : return self.lessDefectStrat.play(self.history, self.budget, roundNum) # self defect commit
         else : return self.mostDefectStrat.play(self.history, self.budget, roundNum) # both defect commit
 
 
