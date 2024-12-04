@@ -34,7 +34,7 @@ class UnilateralClosedMixedGame():
                     self.bot1CommitMoves.append("D")
         if (bot2Commitment) :
             bot2CommitProb, bot2Seed = self.bot2.makeUnilateralCommitment()
-            random.seed(bot1Seed)
+            random.seed(bot2Seed)
             for i in range(self.game_length):
                 if (random.randrange(1,101) <= bot2CommitProb) : 
                     self.bot2CommitMoves.append("C")
