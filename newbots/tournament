@@ -11,17 +11,18 @@ from bots.BilateralOpenMixed import BilateralOpenMixed
 from game.BilateralOpenMixedGame import BilateralOpenMixedGame
 from bots.BilateralOpenDeterministic import BilateralOpenDeterministic
 from game.BilateralOpenDeterministicGame import BilateralOpenDeterministicGame
-
 from bots.UnilateralClosedDeterministic import UnilateralClosedDeterministic
 from game.UnilateralClosedDeterministicGame import UnilateralClosedDeterministicGame
-
 from bots.UnilateralClosedMixed import UnilateralClosedMixed
 from game.UnilateralClosedMixedGame import UnilateralClosedMixedGame
-
-
-
 from bots.UnilateralOCostDeterministic import UnilateralOCostDeterministic
 from game.UnilateralOCostDeterministicGame import UnilateralOCostDeterministicGame
+from bots.UnilateralOCostMixed import UnilateralOCostMixed
+from game.UnilateralOCostMixedGame import UnilateralOCostMixedGame
+from bots.UnilateralOpenDeterministic import UnilateralOpenDeterministic
+from game.UnilateralOpenDeterministicGame import UnilateralOpenDeterministicGame
+from bots.UnilateralOCostMixed import UnilateralOCostMixed
+from game.UnilateralOCostMixedGame import UnilateralOCostMixedGame
 
 from strategies.TitForTat import TitForTat
 from strategies.TitForTwoTats import TitForTwoTats
@@ -72,13 +73,11 @@ playerTypes5 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, F
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False]]
 playerProbs5 = [0.25,0.25,0.25,0.25]
 
-
 playerTypes6 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, False, False]]
 playerProbs6 = [0.25,0.25,0.25,0.25]
-
 
 playerTypes7 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, 100, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, 100, 0],
@@ -86,12 +85,29 @@ playerTypes7 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 10
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, 100, 100, 0]]
 playerProbs7 = [0.25,0.25,0.25,0.25]
 
-
 playerTypes8 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, True, False]]
 playerProbs8 = [0.25,0.25,0.25,0.25]
+
+playerTypes9 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 1],
+               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 1],
+               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 1],
+               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 1]]
+playerProbs9 = [0.25,0.25,0.25,0.25]
+
+playerTypes10 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, True, True],
+                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, True, True],
+                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, True, True],
+                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, True, True]]
+playerProbs10 = [0.25,0.25,0.25,0.25]
+
+playerTypes11 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 0],
+                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 0],
+                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 0],
+                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 100, 0]]
+playerProbs11 = [0.25,0.25,0.25,0.25]
 
 def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
     bots = []
@@ -393,55 +409,127 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
                     count += 1
 
+    elif gameType == 9:
+        bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+        bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+        count = 0
+        for i in range(len(playerTypes)):
+            for n in range((math.floor(playerCount*playerProbs[i]))):      
+                bot = UnilateralOCostMixed(
+                mostCoopStrat=playerTypes[i][0], 
+                lessCoopStrat=playerTypes[i][1], 
+                lessDefectStrat=playerTypes[i][2], 
+                mostDefectStrat=playerTypes[i][3], 
+                budget=playerTypes[i][4], 
+                coopCommitProb=playerTypes[i][5], 
+                makeCommitment=playerTypes[i][6], 
+                payProb=playerTypes[i][7], 
+                opponentCoopCommitProb=playerTypes[i][8],
+                seed=playerTypes[i][9]  # Default seed value
+                )
+                bots.append(bot)
 
+        for i in range(playerCount):
+            for n in range(playerCount):
+                if i < n:
+                    print("Game",count,"****************************************************************************************")
+                    UnilateralOCostMixedGame(
+                    bot1=bots[i], 
+                    bot2=bots[n], 
+                    bot1PayoffMatrix=bot1PayoffMatrix, 
+                    bot2PayoffMatrix=bot2PayoffMatrix, 
+                    game_length=7, 
+                    commitment=+1, 
+                    punishment=-1, 
+                    observation_cost=3).gametime()
+                    bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+                    bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+                    count += 1
 
+    elif gameType == 10:
+        bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+        bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+        count = 0
+        for i in range(len(playerTypes)):
+            for n in range((math.floor(playerCount*playerProbs[i]))):      
+                bot = UnilateralOpenDeterministic(
+                mostCoopStrat=playerTypes[i][0], 
+                lessCoopStrat=playerTypes[i][1], 
+                lessDefectStrat=playerTypes[i][2], 
+                mostDefectStrat=playerTypes[i][3], 
+                budget=playerTypes[i][4], 
+                coopCommitProb=playerTypes[i][5], 
+                makeCommitment=playerTypes[i][6], 
+                commitType=playerTypes[i][7],  # True as a default value, can change
+                opponentCoopCommitType=playerTypes[i][8]  # True as a default value, can change
+                )
+                bots.append(bot)
 
-tournament(0,0,4,playerTypes0, playerProbs0)
-tournament(1,0,4,playerTypes1, playerProbs1)
-tournament(2,0,4,playerTypes2, playerProbs2)
-tournament(3,0,4,playerTypes3, playerProbs3)
-tournament(4,0,4,playerTypes4, playerProbs4)
-tournament(5,0,4,playerTypes5, playerProbs5)
-tournament(6,0,4,playerTypes6, playerProbs6)
-tournament(7,0,4,playerTypes7, playerProbs7)
-tournament(8,0,4,playerTypes8, playerProbs8)
+        for i in range(playerCount):
+            for n in range(playerCount):
+                if i < n:
+                    print("Game",count,"****************************************************************************************")
+                    UnilateralOpenDeterministicGame(
+                    bot1=bots[i], 
+                    bot2=bots[n], 
+                    bot1PayoffMatrix=bot1PayoffMatrix, 
+                    bot2PayoffMatrix=bot2PayoffMatrix, 
+                    game_length=7, 
+                    commitment=+1, 
+                    punishment=-1).gametime()  # Example values for commitment and punishment
+                    
+                    bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+                    bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+                    count += 1
 
-#*********************************************************************************************************************
+    elif gameType == 10:
+        bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+        bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+        count = 0
+        for i in range(len(playerTypes)):
+            for n in range((math.floor(playerCount*playerProbs[i]))):      
+                bot = UnilateralOCostMixed(
+                mostCoopStrat=playerTypes[i][0], 
+                lessCoopStrat=playerTypes[i][1], 
+                lessDefectStrat=playerTypes[i][2], 
+                mostDefectStrat=playerTypes[i][3], 
+                budget=playerTypes[i][4], 
+                coopCommitProb=playerTypes[i][5], 
+                makeCommitment=playerTypes[i][6], 
+                payProb=playerTypes[i][7], 
+                opponentCoopCommitProb=playerTypes[i][8], 
+                seed=playerTypes[i][9]  # Default seed value
+                )
 
+                bots.append(bot)
 
+        for i in range(playerCount):
+            for n in range(playerCount):
+                if i < n:
+                    print("Game",count,"****************************************************************************************")
+                    UnilateralOCostMixedGame(
+                    bot1=bots[i], 
+                    bot2=bots[n], 
+                    bot1PayoffMatrix=bot1PayoffMatrix, 
+                    bot2PayoffMatrix=bot2PayoffMatrix, 
+                    game_length=7, 
+                    commitment=+1, 
+                    punishment=-1, 
+                    observation_cost=3).gametime()
 
+                    bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+                    bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
+                    count += 1
 
-#unilateral ocost mixed
-# unilateralOCostMixedGame = UnilateralOCostMixedGame(
-#     bot1=unilateralOCostMixedBot1, 
-#     bot2=unilateralOCostMixedBot2, 
-#     bot1PayoffMatrix=bot1PayoffMatrix, 
-#     bot2PayoffMatrix=bot2PayoffMatrix, 
-#     game_length=7, 
-#     commitment=+1, 
-#     punishment=-1, 
-#     observation_cost=3  # Example value for observation_cost
-# )
-
-#unilateral open deterministic
-# unilateralOpenDeterministicGame = UnilateralOpenDeterministicGame(
-#     bot1=unilateralOpenDeterministicBot1, 
-#     bot2=unilateralOpenDeterministicBot2, 
-#     bot1PayoffMatrix=bot1PayoffMatrix, 
-#     bot2PayoffMatrix=bot2PayoffMatrix, 
-#     game_length=7, 
-#     commitment=+1, 
-#     punishment=-1  # Example values for commitment and punishment
-# )
-
-#unilateral open mixed
-# unilateralOCostMixedGame = UnilateralOCostMixedGame(
-#     bot1=unilateralOCostMixedBot1, 
-#     bot2=unilateralOCostMixedBot2, 
-#     bot1PayoffMatrix=bot1PayoffMatrix, 
-#     bot2PayoffMatrix=bot2PayoffMatrix, 
-#     game_length=7, 
-#     commitment=+1, 
-#     punishment=-1, 
-#     observation_cost=3  # Example value for observation_cost
-# )
+#tournament(0,0,4,playerTypes0, playerProbs0)
+#tournament(1,0,4,playerTypes1, playerProbs1)
+#tournament(2,0,4,playerTypes2, playerProbs2)
+#tournament(3,0,4,playerTypes3, playerProbs3)
+#tournament(4,0,4,playerTypes4, playerProbs4)
+#tournament(5,0,4,playerTypes5, playerProbs5)
+#tournament(6,0,4,playerTypes6, playerProbs6)
+#tournament(7,0,4,playerTypes7, playerProbs7)
+#tournament(8,0,4,playerTypes8, playerProbs8)
+#tournament(9,0,4,playerTypes9, playerProbs9)
+#tournament(10,0,4,playerTypes10, playerProbs10)
+#tournament(11,0,4,playerTypes11, playerProbs11)
