@@ -28,7 +28,7 @@ class BilateralOCostMixed():
         else : return False
 
     def assumeOpponentCommit(self):
-        pass
+        self.opponentCoopCommitProb = self.assumeCommit
 
     def inTurn(self, roundNum):
         return self.mostCoopStrat.play(self.history, self.budget, roundNum)
