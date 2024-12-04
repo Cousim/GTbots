@@ -90,6 +90,9 @@ class UnilateralOCostDeterministicGame():
         self.bot1.makeCommitment = False
         self.bot2.makeCommitment = False
 
+        self.bot1.opponentCommitType = False
+        self.bot2.opponentCommitType = False
+
 
     def checkCommitmentAndPayoff(self, roundNum):
         self.bot1.budget += self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])

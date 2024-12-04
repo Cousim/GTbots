@@ -2,7 +2,7 @@ import random
 from datetime import datetime
 
 class UnilateralOCostMixed():
-    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment,  payProb, opponentCoopCommitProb, seed):
+    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment,  payProb, opponentCoopCommitProb, assumeOppCommitProb, seed):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
         self.lessDefectStrat = lessDefectStrat
@@ -13,6 +13,7 @@ class UnilateralOCostMixed():
         self.makeCommitment = makeCommitment
         self.payProb = payProb
         self.opponentCoopCommitProb = opponentCoopCommitProb
+        self.assumeOppCommitProb = assumeOppCommitProb
         self.seed = seed
 
 
@@ -32,7 +33,7 @@ class UnilateralOCostMixed():
         else : return False
 
     def assumeOpponentCommit(self):
-        pass
+        self.opponentCoopCommitProb = self.assumeOppCommitProb
 
     def inTurn(self, roundNum):
         self.mostCoopStrat.play(self.history, self.budget, roundNum)

@@ -75,6 +75,9 @@ class BilateralOCostDeterministicGame():
         self.bot1.history = []
         self.bot2.history = []
 
+        self.bot1.opponentCommitType = False
+        self.bot2.opponentCommitType = False
+
 
     def checkCommitmentAndPayoff(self, roundNum):
         self.bot1.budget += self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])

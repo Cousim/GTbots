@@ -23,3 +23,4 @@ bot2PayoffMatrix = {"CC": 3,"DC":5,"CD":0,"DD":1}
 bilateralClosedDeterministicGame = BilateralOCostMixedGame(bilateralOCostMixedBot1, bilateralOCostMixedBot2, bot1PayoffMatrix, bot2PayoffMatrix, 7, +1, -1, 3)
 
 bilateralClosedDeterministicGame.gametime()
+bilateralClosedDeterministicGame.gametime()

@@ -24,7 +24,8 @@ unilateralOCostMixedBot1 = UnilateralOCostMixed(
     coopCommitProb=70, 
     makeCommitment=True, 
     payProb=50, 
-    opponentCoopCommitProb=50, 
+    opponentCoopCommitProb=0, 
+    assumeOppCommitProb=50,
     seed=0  # Default seed value
 )
 
@@ -37,7 +38,8 @@ unilateralOCostMixedBot2 = UnilateralOCostMixed(
     coopCommitProb=80, 
     makeCommitment=False, 
     payProb=50, 
-    opponentCoopCommitProb=50, 
+    opponentCoopCommitProb=0, 
+    assumeOppCommitProb=40,
     seed=0  # Default seed value
 )
 
@@ -59,3 +61,5 @@ unilateralOCostMixedGame = UnilateralOCostMixedGame(
 
 # Run the game
 unilateralOCostMixedGame.gametime()
+unilateralOCostMixedGame.gametime()
+

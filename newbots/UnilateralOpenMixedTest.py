@@ -1,5 +1,5 @@
-from bots.UnilateralOCostMixed import UnilateralOCostMixed
-from game.UnilateralOCostMixedGame import UnilateralOCostMixedGame
+from bots.UnilateralOpenMixed import UnilateralOpenMixed
+from game.UnilateralOpenMixedGame import UnilateralOpenMixedGame
 
 from strategies.TitForTat import TitForTat
 from strategies.TitForTwoTats import TitForTwoTats
@@ -15,20 +15,19 @@ grimTrigger = GrimTrigger()
 alwaysDefect = AlwaysDefect()
 
 # Create bot instances
-unilateralOCostMixedBot1 = UnilateralOCostMixed(
+unilateralOCostMixedBot1 = UnilateralOpenMixed(
     mostCoopStrat=titForTat, 
     lessCoopStrat=titForTwoTats, 
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
     coopCommitProb=70, 
-    makeCommitment=True, 
-    payProb=50, 
-    opponentCoopCommitProb=50, 
+    makeCommitment=False, 
+    opponentCoopCommitProb=0, 
     seed=0  # Default seed value
 )
 
-unilateralOCostMixedBot2 = UnilateralOCostMixed(
+unilateralOCostMixedBot2 = UnilateralOpenMixed(
     mostCoopStrat=titForTat, 
     lessCoopStrat=titForTwoTats, 
     lessDefectStrat=pavlov, 
@@ -36,8 +35,7 @@ unilateralOCostMixedBot2 = UnilateralOCostMixed(
     budget=0, 
     coopCommitProb=80, 
     makeCommitment=False, 
-    payProb=50, 
-    opponentCoopCommitProb=50, 
+    opponentCoopCommitProb=0, 
     seed=0  # Default seed value
 )
 
@@ -46,16 +44,16 @@ bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
 bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
 
 # Create game instance
-unilateralOCostMixedGame = UnilateralOCostMixedGame(
+unilateralOCostMixedGame = UnilateralOpenMixedGame(
     bot1=unilateralOCostMixedBot1, 
     bot2=unilateralOCostMixedBot2, 
     bot1PayoffMatrix=bot1PayoffMatrix, 
     bot2PayoffMatrix=bot2PayoffMatrix, 
     game_length=7, 
     commitment=+1, 
-    punishment=-1, 
-    observation_cost=3  # Example value for observation_cost
+    punishment=-1,
 )
 
 # Run the game
+unilateralOCostMixedGame.gametime()
 unilateralOCostMixedGame.gametime()

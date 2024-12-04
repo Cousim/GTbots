@@ -15,7 +15,7 @@ class UnilateralOpenMixed():
         self.seed = seed
 
 
-    def makeUnilateralCommitment(self):
+    def makeMixedCommitment(self):
         if (self.makeCommitment):
             self.seed = datetime.now().timestamp()
             return self.coopCommitProb, self.seed
@@ -27,7 +27,7 @@ class UnilateralOpenMixed():
         self.opponentCoopCommit = opponentCoopCommit
 
     def inTurn(self, roundNum):
-        self.mostCoopStrategy.play(self.history, self.budget, roundNum)
+        self.mostCoopStrat.play(self.history, self.budget, roundNum)
 
 
 
