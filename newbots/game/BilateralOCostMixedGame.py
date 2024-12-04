@@ -75,8 +75,8 @@ class BilateralOCostMixedGame():
         self.bot1.history = []
         self.bot2.history = []
 
-        self.bot1.opponentCoopCommitProb = False
-        self.bot2.opponentCoopCommitProb = False
+        self.bot1.opponentCoopCommitProb = 0
+        self.bot2.opponentCoopCommitProb = 0
 
 
     def checkCommitmentAndPayoff(self, roundNum):
