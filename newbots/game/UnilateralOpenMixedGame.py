@@ -16,7 +16,7 @@ class UnilateralOpenMixedGame():
     
     def takeUnilateralCommitment(self):
         random.seed(datetime.now().timestamp())
-        if (random.randRange(1, 101)<51) :
+        if (random.randrange(1, 101)<51) :
             self.bot1.makeCommitment = True
         else :
             self.bot2.makeCommitment = True
@@ -34,7 +34,7 @@ class UnilateralOpenMixedGame():
                     self.bot1CommitMoves.append("D")
         if (bot2Commitment) :
             bot2CommitProb, bot2Seed = self.bot2.makeMixedCommitment()
-            random.seed(bot1Seed)
+            random.seed(bot2Seed)
             for i in range(self.game_length):
                 if (random.randrange(1,101) <= bot2CommitProb) : 
                     self.bot2CommitMoves.append("C")
@@ -45,7 +45,7 @@ class UnilateralOpenMixedGame():
     
     def setOpponentCommitment(self):
         if (self.bot1.makeCommitment) : self.bot2.opponentCommitProb = self.bot1.coopCommitProb
-        else : self.bot1.opponentCommitType = self.bot2.commitType
+        else : self.bot1.opponentCommitProb = self.bot2.coopCommitProb
 
 
     def rounds(self):

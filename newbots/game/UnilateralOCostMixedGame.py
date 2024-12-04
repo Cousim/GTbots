@@ -36,7 +36,7 @@ class UnilateralOCostMixedGame():
                     self.bot1CommitMoves.append("D")
         if (bot2Commitment) :
             bot2CommitProb, bot2Seed = self.bot2.makeUnilateralCommitment()
-            random.seed(bot1Seed)
+            random.seed(bot2Seed)
             for i in range(self.game_length):
                 if (random.randrange(1,101) <= bot2CommitProb) : 
                     self.bot2CommitMoves.append("C")
@@ -53,19 +53,19 @@ class UnilateralOCostMixedGame():
         
         if (bot1pays) :
             self.bot1.budget -= self.observation_cost
-            self.bot1.opponentCommitType = self.bot2.commitType
+            self.bot1.opponentCommitProb = self.bot2.coopCommitProb
         else : 
             self.bot1.assumeOpponentCommit()
 
         if (bot2pays) :
             self.bot2.budget -= self.observation_cost
-            self.bot2.opponentCommitType = self.bot1.commitType
+            self.bot2.opponentCommitType = self.bot1.coopCommitProb
         else : 
             self.bot2.assumeOpponentCommit()
 
     def setOpponentCommitment(self):
         if (self.bot1.makeCommitment) : self.bot2.opponentCommitProb = self.bot1.coopCommitProb
-        else : self.bot1.opponentCommitType = self.bot2.commitType
+        else : self.bot1.opponentCommitProb = self.bot2.coopCommitProb
 
     def assumeOpponentCommitment(self):
         if (self.bot1.makeCommitment) : self.bot2.assumeOpponentCommit()

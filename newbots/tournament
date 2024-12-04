@@ -396,15 +396,15 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
 
 
 
-tournament(0,0,4,playerTypes0, playerProbs0)
-tournament(1,0,4,playerTypes1, playerProbs1)
-tournament(2,0,4,playerTypes2, playerProbs2)
-tournament(3,0,4,playerTypes3, playerProbs3)
-tournament(4,0,4,playerTypes4, playerProbs4)
-tournament(5,0,4,playerTypes5, playerProbs5)
-tournament(6,0,4,playerTypes6, playerProbs6)
+#tournament(0,0,4,playerTypes0, playerProbs0)
+#tournament(1,0,4,playerTypes1, playerProbs1)
+#tournament(2,0,4,playerTypes2, playerProbs2)
+#tournament(3,0,4,playerTypes3, playerProbs3)
+#tournament(4,0,4,playerTypes4, playerProbs4)
+#tournament(5,0,4,playerTypes5, playerProbs5)
+#tournament(6,0,4,playerTypes6, playerProbs6)
 tournament(7,0,4,playerTypes7, playerProbs7)
-tournament(8,0,4,playerTypes8, playerProbs8)
+#tournament(8,0,4,playerTypes8, playerProbs8)
 
 #*********************************************************************************************************************
 

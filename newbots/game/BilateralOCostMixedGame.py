@@ -75,6 +75,9 @@ class BilateralOCostMixedGame():
         self.bot1.history = []
         self.bot2.history = []
 
+        self.bot1.opponentCoopCommitProb = False
+        self.bot2.opponentCoopCommitProb = False
+
 
     def checkCommitmentAndPayoff(self, roundNum):
         self.bot1.budget += self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])

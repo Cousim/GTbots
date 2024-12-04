@@ -58,3 +58,4 @@ unilateralClosedMixedGame = UnilateralClosedMixedGame(
 
 # Run the game
 unilateralClosedMixedGame.gametime()
+unilateralClosedMixedGame.gametime()
