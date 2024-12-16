@@ -5,6 +5,8 @@ from datetime import datetime
 #opponentCommitProb is equal to assumeCommitProb, dummy value entered in construction
 
 class BilateralClosedMixed():
+    bot_number = 0
+
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, opponentCommitProb, seed):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
@@ -16,6 +18,8 @@ class BilateralClosedMixed():
         self.assumeCommitProb = assumeCommitProb
         self.opponentCommitProb = opponentCommitProb
         self.seed = seed
+        BilateralClosedMixed.bot_number += 1
+        self.id = BilateralClosedMixed.bot_number
 
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()

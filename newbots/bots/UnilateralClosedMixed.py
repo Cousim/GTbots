@@ -2,6 +2,7 @@ import random
 from datetime import datetime
 
 class UnilateralClosedMixed():
+    bot_number = 0
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment, assumeOpponentCommitProb, opponentCoopCommitProb, seed):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
@@ -14,6 +15,8 @@ class UnilateralClosedMixed():
         self.assumeCommitProb = assumeOpponentCommitProb
         self.opponentCoopCommitProb = opponentCoopCommitProb
         self.seed = seed
+        UnilateralClosedMixed.bot_number += 1
+        self.id = UnilateralClosedMixed.bot_number
 
 
     def makeUnilateralCommitment(self):

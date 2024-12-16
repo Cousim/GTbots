@@ -2,6 +2,7 @@ import random
 from datetime import datetime
 
 class BilateralOCostMixed():
+    bot_number = 0
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, payProb, opponentCoopCommitProb, seed):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
@@ -14,6 +15,8 @@ class BilateralOCostMixed():
         self.payProb = payProb
         self.opponentCoopCommitProb = opponentCoopCommitProb
         self.seed = seed
+        BilateralOCostMixed.bot_number += 1
+        self.id = BilateralOCostMixed.bot_number
 
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()

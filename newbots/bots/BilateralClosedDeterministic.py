@@ -3,6 +3,8 @@ from datetime import datetime
 
 
 class BilateralClosedDeterministic():
+    bot_number = 0
+
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, commitType, opponentCoopCommitType):
         #super().__init__(mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, commitType, opponentCoopCommitType)
         
@@ -16,6 +18,8 @@ class BilateralClosedDeterministic():
         self.assumeCommitProb = assumeCommitProb
         self.commitType = commitType #true for coop, false for defect
         self.opponentCoopCommitType = opponentCoopCommitType
+        BilateralClosedDeterministic.bot_number += 1
+        self.id = BilateralClosedDeterministic.bot_number
         
 
     def setCommitType(self, type):

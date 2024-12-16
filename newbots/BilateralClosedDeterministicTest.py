@@ -16,7 +16,7 @@ alwaysDefect = AlwaysDefect()
 
 # Create bot instances
 bilateralClosedDeterministicBot1 = BilateralClosedDeterministic(
-    titForTat, titForTwoTats, pavlov, grimTrigger, 
+    alwaysDefect, alwaysDefect, alwaysDefect, alwaysDefect, 
     budget=0, 
     coopCommitProb=70, 
     assumeCommitProb=50, 
@@ -50,3 +50,5 @@ bilateralClosedDeterministicGame = BilateralClosedDeterministicGame(
 
 # Run the game
 bilateralClosedDeterministicGame.gametime()
+print(bilateralClosedDeterministicBot1.id)
+print(bilateralClosedDeterministicBot2.id)

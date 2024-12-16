@@ -3,6 +3,7 @@ from datetime import datetime
 
 
 class UnilateralClosedDeterministic():
+    bot_number = 0
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment, assumeCommitProb, commitType, opponentCoopCommitType):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
@@ -15,6 +16,8 @@ class UnilateralClosedDeterministic():
         self.assumeCommit = assumeCommitProb
         self.commitType = commitType #true for coop, false for defect
         self.opponentCoopCommitType = opponentCoopCommitType
+        UnilateralClosedDeterministic.bot_number += 1
+        self.id = UnilateralClosedDeterministic.bot_number
 
     def setCommitType(self, type):
         self.commitType = type #true for coop, false for defect
