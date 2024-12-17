@@ -32,10 +32,10 @@ from strategies.AlwaysDefect import AlwaysDefect
 
 # Define strategies
 titForTat = TitForTat()
-titForTwoTats = TitForTwoTats() # titfortat ile ayni yaoiyor
+titForTwoTats = TitForTwoTats() 
 pavlov = Pavlov()
 grimTrigger = GrimTrigger()
-alwaysDefect = AlwaysDefect() # reverse titfortat olmus degismesi lazim
+alwaysDefect = AlwaysDefect() 
 
 playerTypes0 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
