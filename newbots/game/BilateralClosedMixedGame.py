@@ -13,6 +13,7 @@ class BilateralClosedMixedGame():
             self.punishment = punishment
             self.bot1CommitMoves = []
             self.bot2CommitMoves = []
+            self.gameHistory = []
     
     def takeBilateralCommitment(self):
 
@@ -82,3 +83,7 @@ class BilateralClosedMixedGame():
         self.takeBilateralCommitment()
         self.assumeOpponentCommitment()
         self.rounds()
+        
+
+    def sendMixedMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]

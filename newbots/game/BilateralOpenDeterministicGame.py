@@ -7,7 +7,8 @@ class BilateralOpenDeterministicGame():
         self.game_length = game_length
         self.commitment = commitment
         self.punishment = punishment
-    
+        self.gameHistory = []
+            
     def takeBilateralCommitment(self):
         bot1Commitment = self.bot1.makeCommitment()
         bot2Commitment = self.bot2.makeCommitment()
@@ -72,3 +73,6 @@ class BilateralOpenDeterministicGame():
         self.takeBilateralCommitment()
         self.setOpponentCommitment()
         self.rounds()
+
+    def sendMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1.commitType, self.bot2.commitType, self.gameHistory]

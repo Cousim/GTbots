@@ -50,5 +50,4 @@ bilateralClosedDeterministicGame = BilateralClosedDeterministicGame(
 
 # Run the game
 bilateralClosedDeterministicGame.gametime()
-print(bilateralClosedDeterministicBot1.id)
-print(bilateralClosedDeterministicBot2.id)
+print(bilateralClosedDeterministicGame.sendMatchupInfo())

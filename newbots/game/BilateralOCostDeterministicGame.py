@@ -8,6 +8,7 @@ class BilateralOCostDeterministicGame():
         self.commitment = commitment
         self.punishment = punishment
         self.observation_cost = observation_cost
+        self.gameHistory = []
     
     def takeBilateralCommitment(self):
         bot1Commitment = self.bot1.makeCommitment()
@@ -87,3 +88,6 @@ class BilateralOCostDeterministicGame():
         self.takeBilateralCommitment()
         self.payForCommitment()
         self.rounds()
+
+    def sendMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1.commitType, self.bot2.commitType, self.gameHistory]

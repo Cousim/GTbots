@@ -14,6 +14,7 @@ class UnilateralOCostMixedGame():
         self.observation_cost = observation_cost
         self.bot1CommitMoves = []
         self.bot2CommitMoves = []
+        self.gameHistory = []
 
     
     def takeUnilateralCommitment(self):
@@ -120,3 +121,6 @@ class UnilateralOCostMixedGame():
         self.takeUnilateralCommitment()
         self.setOpponentCommitment()
         self.rounds()
+
+    def sendMixedMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]

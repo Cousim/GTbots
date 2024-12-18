@@ -10,6 +10,7 @@ class BilateralClosedDeterministicGame():
         self.game_length = game_length
         self.commitment = commitment
         self.punishment = punishment
+        self.gameHistory = []
     
 
     def takeBilateralCommitment(self):
@@ -67,7 +68,8 @@ class BilateralClosedDeterministicGame():
                   str(self.bot1.budget))
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
-
+        
+        self.gameHistory = self.bot1.history
         self.bot1.history = []
         self.bot2.history = []
 
@@ -81,4 +83,8 @@ class BilateralClosedDeterministicGame():
         self.takeBilateralCommitment()
         self.assumeCommitment()
         self.rounds()
+
+    def sendMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1.commitType, self.bot2.commitType, self.gameHistory]
+
 

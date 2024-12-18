@@ -13,7 +13,8 @@ class UnilateralClosedMixedGame():
         self.punishment = punishment
         self.bot1CommitMoves = []
         self.bot2CommitMoves = []
-    
+        self.gameHistory = []
+        
     def takeUnilateralCommitment(self):
         random.seed(datetime.now().timestamp())
         if (random.randrange(1, 101)<51) :
@@ -96,3 +97,6 @@ class UnilateralClosedMixedGame():
         self.takeUnilateralCommitment()
         self.assumeOpponentCommitment()
         self.rounds()
+
+    def sendMixedMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]

@@ -14,7 +14,7 @@ class BilateralOCostMixedGame():
         self.observation_cost = observation_cost
         self.bot1CommitMoves = []
         self.bot2CommitMoves = []
-        
+        self.gameHistory = []        
     
     def takeBilateralCommitment(self):
             bot1CommitProb, bot1Seed = self.bot1.makeMixedCommitment()
@@ -100,3 +100,6 @@ class BilateralOCostMixedGame():
         self.takeBilateralCommitment()
         self.payForCommitment()
         self.rounds()
+
+    def sendMixedMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]

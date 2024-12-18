@@ -11,7 +11,8 @@ class UnilateralClosedDeterministicGame():
             self.game_length = game_length
             self.commitment = commitment
             self.punishment = punishment
-    
+            self.gameHistory = []    
+            
     def takeUnilateralCommitment(self):
         random.seed(datetime.now().timestamp())
         if (random.randrange(1, 101)<51) :
@@ -85,5 +86,8 @@ class UnilateralClosedDeterministicGame():
         self.takeUnilateralCommitment()
         self.assumeCommitment()
         self.rounds()
+
+    def sendMatchupInfo(self):
+        return [self.bot1.id, self.bot2.id, self.bot1.commitType, self.bot2.commitType, self.gameHistory]
 
         
