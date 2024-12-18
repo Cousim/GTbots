@@ -12,7 +12,7 @@ class UnilateralOCostDeterministic():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment
+        self.makeCommitment = makeCommitment #no need
         self.assumeCommitProb = assumeCommitProb
         self.payProb = payProb
         self.commitType = commitType #true for coop, false for defect

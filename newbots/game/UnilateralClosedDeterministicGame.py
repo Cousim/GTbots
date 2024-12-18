@@ -14,14 +14,8 @@ class UnilateralClosedDeterministicGame():
             self.gameHistory = []    
             
     def takeUnilateralCommitment(self):
-        random.seed(datetime.now().timestamp())
-        if (random.randrange(1, 101)<51) :
-            self.bot1.makeCommitment = True
-        else :
-            self.bot2.makeCommitment = True
-
-        bot1Commitment = self.bot1.makeCommitment
-        bot2Commitment = self.bot2.makeCommitment
+        self.bot1.makeCommitment = True
+        bot1Commitment = self.bot1.makeCommitment()
 
         if (bot1Commitment) :
             self.bot1PayoffMatrix.update({"CC": self.bot1PayoffMatrix.get("CC") + self.commitment})
@@ -34,16 +28,6 @@ class UnilateralClosedDeterministicGame():
             self.bot1PayoffMatrix.update({"DC": self.bot1PayoffMatrix.get("DC") + self.commitment})
             self.bot1PayoffMatrix.update({"DD": self.bot1PayoffMatrix.get("DD") + self.commitment})
 
-        if (bot2Commitment) :
-            self.bot2PayoffMatrix.update({"CC": self.bot2PayoffMatrix.get("CC") + self.commitment})
-            self.bot2PayoffMatrix.update({"CD": self.bot2PayoffMatrix.get("CD") + self.commitment})
-            self.bot2PayoffMatrix.update({"DC": self.bot2PayoffMatrix.get("DC") + self.punishment})
-            self.bot2PayoffMatrix.update({"DD": self.bot2PayoffMatrix.get("DD") + self.punishment})
-        else : 
-            self.bot2PayoffMatrix.update({"CC": self.bot2PayoffMatrix.get("CC") + self.punishment})
-            self.bot2PayoffMatrix.update({"CD": self.bot2PayoffMatrix.get("CD") + self.punishment})
-            self.bot2PayoffMatrix.update({"DC": self.bot2PayoffMatrix.get("DC") + self.commitment})
-            self.bot2PayoffMatrix.update({"DD": self.bot2PayoffMatrix.get("DD") + self.commitment})
 
     
     def assumeCommitment(self):

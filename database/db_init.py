@@ -29,283 +29,82 @@ db_cursor = db_connection.cursor(buffered=True)
 
 db_cursor.execute("USE gametheory")
 
-'''
+ # Each table is returned as a tuple
+
+#may change size of payoffs
 db_cursor.execute("""
-CREATE TABLE BILATERAL_CLOSED_DETERMINISTIC (
-    id INT NOT NULL, 
-    most_coop_strat VARCHAR(255), 
-    less_coop_strat VARCHAR(255), 
-    less_defect_strat VARCHAR(255), 
-    most_defect_strat VARCHAR(255), 
-    coop_commit_prob FLOAT, 
-    budget FLOAT, 
-    assume_commit_prob FLOAT, 
-    commit_type BOOLEAN, 
-    opponent_coop_commit_type VARCHAR(255), 
-    PRIMARY KEY (id)
+CREATE TABLE TOURNAMENTS (
+    tournament_id VARCHAR(255) NOT NULL,
+    game_type INT,
+    game_length INT,
+    payoffs VARCHAR(255),
+    punishment INT,
+    reward INT,
+    PRIMARY KEY (tournament_id)
 )
 """)
-'''
+
+# not used right now, will be used in nested for loops
+#insert_tournaments = (
+#    "INSERT INTO TOURNAMENTS "
+#    "(tournament_id, game_type, game_length, payoffs, punishment, reward) "
+#    "VALUES (%s, %s, %s, %s, %s, %s)"
+#)
+
+db_cursor.execute("""
+CREATE TABLE PLAYERS (
+    player_id INT NOT NULL,
+    tournament_id VARCHAR(255) NOT NULL,
+    most_coop_strat INT,
+    less_coop_strat INT,
+    less_def_strat INT,
+    most_def_strat INT,
+    coop_commit_prob FLOAT,
+    assume_commit_prob FLOAT,
+    pay_prob FLOAT,
+    win_count INT,
+    draw_count INT,
+    loss_count INT,
+    PRIMARY KEY (player_id, tournament_id),
+    FOREIGN KEY (tournament_id) REFERENCES TOURNAMENTS(tournament_id)
+)
+""")
+
+# not used right now, will be used in nested for loops
+#insert_players = (
+#    "INSERT INTO PLAYERS "
+#    "(player_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, coop_comm_prob, assume_comm_prob, pay_prob, win_count, draw_count, loss_count, tour_id) "
+#    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+#)
+
+db_cursor.execute("""
+CREATE TABLE MATCHUPS (
+    tournament_id VARCHAR(255) NOT NULL,
+    player1_id INT NOT NULL,
+    player2_id INT NOT NULL,
+    history VARCHAR(255),
+    player1_commitment FLOAT,
+    player2_commitment FLOAT,
+    player1_score INT,
+    player2_score INT,
+    player1_seed_list VARCHAR(255),
+    player2_seed_list VARCHAR(255),
+    PRIMARY KEY (tournament_id, player1_id, player2_id),
+    FOREIGN KEY (tournament_id) REFERENCES TOURNAMENTS(tournament_id),
+    FOREIGN KEY (player1_id) REFERENCES PLAYERS(player_id),
+    FOREIGN KEY (player2_id) REFERENCES PLAYERS(player_id)
+)
+""")
+
+# not used right now, will be used in nested for loops
+#insert_matchups = (
+#    "INSERT INTO MATCHUPS "
+#    "(tournament_id, player1_id, player2_id, history, p1_commitment, p2_commitment, p1_score, p2_score, p1_seed_list, p2_seed_list) "
+#    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+#)
 
 db_cursor.execute("SHOW TABLES")
 tables = db_cursor.fetchall()
 
 for table in tables:
-    print(table[0])  # Each table is returned as a tuple
-
-
-insert_bilateral_closed_deterministic = (
-    "INSERT INTO BILATERAL_CLOSED_DETERMINISTIC "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, assume_commit_prob, commit_type, opponent_coop_commit_type) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-
-
-db_cursor.execute("""
-CREATE TABLE BILATERAL_CLOSED_MIXED (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    assume_commit_prob FLOAT,
-    opponent_commit_prob FLOAT,
-    seed INT,
-    PRIMARY KEY (id)
-)
-""")
-
-insert_bilateral_closed_mixed = (
-    "INSERT INTO BILATERAL_CLOSED_MIXED "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, assume_commit_prob, opponent_commit_prob, seed) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE BILATERAL_OCOST_DETERMINISTIC (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    assume_commit_prob FLOAT,
-    pay_prob FLOAT,
-    commit_type BOOLEAN,
-    opponent_coop_commit_type VARCHAR(255),
-    PRIMARY KEY (id)
-)
-""")
-
-insert_bilateral_ocost_deterministic = (
-    "INSERT INTO BILATERAL_OCOST_DETERMINISTIC "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, assume_commit_prob, pay_prob, commit_type, opponent_coop_commit_type) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE BILATERAL_OCOST_MIXED (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    assume_commit_prob FLOAT,
-    pay_prob FLOAT,
-    opponent_coop_commit_prob FLOAT,
-    seed INT,
-    PRIMARY KEY (id)
-)
-""")
-
-insert_bilateral_ocost_mixed = (
-    "INSERT INTO BILATERAL_OCOST_MIXED "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, assume_commit_prob, pay_prob, opponent_coop_commit_prob, seed) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE BILATERAL_OPEN_DETERMINISTIC (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    commit_type BOOLEAN,
-    opponent_coop_commit_type VARCHAR(255),
-    PRIMARY KEY (id)
-)
-""")
-
-insert_bilateral_open_deterministic = (
-    "INSERT INTO BILATERAL_OPEN_DETERMINISTIC "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, commit_type, opponent_coop_commit_type) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE BILATERAL_OPEN_MIXED (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    opponent_coop_commit_prob FLOAT,
-    seed INT,
-    PRIMARY KEY (id)
-)
-""")
-
-insert_bilateral_open_mixed = (
-    "INSERT INTO BILATERAL_OPEN_MIXED "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, opponent_coop_commit_prob, seed) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE UNILATERAL_CLOSED_DETERMINISTIC (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    make_commitment BOOLEAN,
-    assume_commit_prob FLOAT,
-    commit_type BOOLEAN,
-    opponent_coop_commit_type VARCHAR(255),
-    PRIMARY KEY (id)
-)
-""")
-
-insert_unilateral_closed_deterministic = (
-    "INSERT INTO UNILATERAL_CLOSED_DETERMINISTIC "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, make_commitment, assume_commit_prob, commit_type, opponent_coop_commit_type) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE UNILATERAL_CLOSED_MIXED (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    make_commitment BOOLEAN,
-    assume_opponent_commit_prob FLOAT,
-    opponent_coop_commit_prob FLOAT,
-    seed INT,
-    PRIMARY KEY (id)
-)
-""")
-
-insert_unilateral_closed_mixed = (
-    "INSERT INTO UNILATERAL_CLOSED_MIXED "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, make_commitment, assume_opponent_commit_prob, opponent_coop_commit_prob, seed) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE UNILATERAL_OCOST_DETERMINISTIC (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    assume_commit_prob FLOAT,
-    pay_prob FLOAT,
-    make_commitment BOOLEAN,
-    commit_type BOOLEAN,
-    opponent_coop_commit_type VARCHAR(255),
-    PRIMARY KEY (id)
-)
-""")
-
-insert_unilateral_ocost_deterministic = (
-    "INSERT INTO UNILATERAL_OCOST_DETERMINISTIC "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, assume_commit_prob, pay_prob, make_commitment, commit_type, opponent_coop_commit_type) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE UNILATERAL_OCOST_MIXED (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    make_commitment BOOLEAN,
-    pay_prob FLOAT,
-    opponent_coop_commit_prob FLOAT,
-    assume_opp_commit_prob FLOAT,
-    seed INT,
-    PRIMARY KEY (id)
-)
-""")
-
-insert_unilateral_ocost_mixed = (
-    "INSERT INTO UNILATERAL_OCOST_MIXED "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, make_commitment, pay_prob, opponent_coop_commit_prob, assume_opp_commit_prob, seed) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE UNILATERAL_OPEN_DETERMINISTIC (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    make_commitment BOOLEAN,
-    commit_type BOOLEAN,
-    opponent_coop_commit_type VARCHAR(255),
-    PRIMARY KEY (id)
-)
-""")
-
-insert_unilateral_open_deterministic = (
-    "INSERT INTO UNILATERAL_OPEN_DETERMINISTIC "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, make_commitment, commit_type, opponent_coop_commit_type) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
-
-db_cursor.execute("""
-CREATE TABLE UNILATERAL_OPEN_MIXED (
-    id INT NOT NULL,
-    most_coop_strat VARCHAR(255),
-    less_coop_strat VARCHAR(255),
-    less_defect_strat VARCHAR(255),
-    most_defect_strat VARCHAR(255),
-    coop_commit_prob FLOAT,
-    budget FLOAT,
-    make_commitment BOOLEAN,
-    opponent_coop_commit_prob FLOAT,
-    seed INT,
-    PRIMARY KEY (id)
-)
-""")
-
-insert_unilateral_open_mixed = (
-    "INSERT INTO UNILATERAL_OPEN_MIXED "
-    "(id, most_coop_strat, less_coop_strat, less_defect_strat, most_defect_strat, coop_commit_prob, budget, make_commitment, opponent_coop_commit_prob, seed) "
-    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-)
+    print(table[0]) 

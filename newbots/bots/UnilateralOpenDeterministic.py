@@ -13,7 +13,7 @@ class UnilateralOpenDeterministic():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment
+        self.makeCommitment = makeCommitment #no need
         self.commitType = commitType #true for coop, false for defect
         self.opponentCoopCommitType = opponentCoopCommitType
         UnilateralOpenDeterministic.bot_number += 1

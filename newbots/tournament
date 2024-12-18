@@ -109,6 +109,9 @@ playerTypes11 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 0]]
 playerProbs11 = [0.25,0.25,0.25,0.25]
 
+
+#For unilateral games everyone should play each other twice with different commit
+
 def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs):
     bots = []
     if gameType == 0:

@@ -11,7 +11,7 @@ class UnilateralOpenMixed():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment
+        self.makeCommitment = makeCommitment #no need
         self.opponentCoopCommitProb = opponentCoopCommitProb
         self.seed = seed
         UnilateralOpenMixed.bot_number += 1

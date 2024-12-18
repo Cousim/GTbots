@@ -11,7 +11,7 @@ class UnilateralClosedMixed():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment
+        self.makeCommitment = makeCommitment #no need
         self.assumeCommitProb = assumeOpponentCommitProb
         self.opponentCoopCommitProb = opponentCoopCommitProb
         self.seed = seed

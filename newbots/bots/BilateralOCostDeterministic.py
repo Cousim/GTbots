@@ -2,7 +2,7 @@ import random
 from datetime import datetime
 
 class BilateralOCostDeterministic():
-    bot_number = 0
+    bot_number = 0 #????
 
     def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, payProb, commitType, opponentCoopCommitType):
         self.mostCoopStrat = mostCoopStrat
