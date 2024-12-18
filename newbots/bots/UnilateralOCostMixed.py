@@ -17,7 +17,7 @@ class UnilateralOCostMixed():
         self.assumeOppCommitProb = assumeOppCommitProb
         self.seed = seed
         UnilateralOCostMixed.bot_number += 1
-        self.id += UnilateralOCostMixed.bot_number
+        self.id = UnilateralOCostMixed.bot_number
 
 
     def makeUnilateralCommitment(self):

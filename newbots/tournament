@@ -109,7 +109,7 @@ playerTypes11 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, 100, 0]]
 playerProbs11 = [0.25,0.25,0.25,0.25]
 
-def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
+def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs):
     bots = []
     if gameType == 0:
         bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
@@ -135,7 +135,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix, 
                     bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1).gametime()
                     bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
@@ -167,7 +167,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix, 
                     bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1
                     ).gametime()
@@ -201,7 +201,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix, 
                     bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1, 
                     observation_cost=3  # Add observation cost parameter
@@ -229,7 +229,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralOCostMixedGame(bots[i], bots[n], bot1PayoffMatrix, bot2PayoffMatrix, 7, +1, -1, 3).gametime()
+                    BilateralOCostMixedGame(bots[i], bots[n], bot1PayoffMatrix, bot2PayoffMatrix, gameLength, +1, -1, 3).gametime()
                     bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
                     bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
                     count += 1
@@ -258,7 +258,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix, 
                     bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1).gametime()
                     bot1PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
@@ -288,7 +288,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix, 
                     bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1
                     ).gametime()
@@ -325,7 +325,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
                     bot2PayoffMatrix=bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1
                     ).gametime()
@@ -362,7 +362,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
                     bot2PayoffMatrix=bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1
                     ).gametime()
@@ -400,7 +400,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
                     bot2PayoffMatrix=bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1, 
                     observation_cost=3  # Example value for observation_cost
@@ -439,7 +439,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bot2=bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
                     bot2PayoffMatrix=bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1, 
                     observation_cost=3).gametime()
@@ -475,7 +475,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bot2=bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
                     bot2PayoffMatrix=bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1).gametime()  # Example values for commitment and punishment
                     
@@ -511,7 +511,7 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bot2=bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
                     bot2PayoffMatrix=bot2PayoffMatrix, 
-                    game_length=7, 
+                    game_length=gameLength, 
                     commitment=+1, 
                     punishment=-1,
                     ).gametime()
@@ -520,15 +520,15 @@ def tournament(gameType, gameCount, playerCount, playerTypes, playerProbs):
                     bot2PayoffMatrix = {"CC": 3, "DC": 5, "CD": 0, "DD": 1}
                     count += 1
 
-#tournament(0,0,4,playerTypes0, playerProbs0)
-#tournament(1,0,4,playerTypes1, playerProbs1)
-#tournament(2,0,4,playerTypes2, playerProbs2)
-#tournament(3,0,4,playerTypes3, playerProbs3)
-#tournament(4,0,4,playerTypes4, playerProbs4)
-#tournament(5,0,4,playerTypes5, playerProbs5)
-#tournament(6,0,4,playerTypes6, playerProbs6)
-#tournament(7,0,4,playerTypes7, playerProbs7)
-#tournament(8,0,4,playerTypes8, playerProbs8)
-#tournament(9,0,4,playerTypes9, playerProbs9)
-#tournament(10,0,4,playerTypes10, playerProbs10)
-#tournament(11,0,4,playerTypes11, playerProbs11)
+#tournament(0,7,4,playerTypes0, playerProbs0)
+#tournament(1,7,4,playerTypes1, playerProbs1)
+#tournament(2,7,4,playerTypes2, playerProbs2)
+#tournament(3,7,4,playerTypes3, playerProbs3)
+#tournament(4,7,4,playerTypes4, playerProbs4)
+#tournament(5,7,4,playerTypes5, playerProbs5)
+#tournament(6,7,4,playerTypes6, playerProbs6)
+#tournament(7,7,4,playerTypes7, playerProbs7)
+#tournament(8,7,4,playerTypes8, playerProbs8)
+#tournament(9,7,4,playerTypes9, playerProbs9)
+#tournament(10,7,4,playerTypes10, playerProbs10)
+#tournament(11,7,4,playerTypes11, playerProbs11)
