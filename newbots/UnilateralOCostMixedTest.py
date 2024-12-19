@@ -16,7 +16,7 @@ alwaysDefect = AlwaysDefect()
 
 # Create bot instances
 unilateralOCostMixedBot1 = UnilateralOCostMixed(
-    mostCoopStrat=titForTat, 
+    mostCoopStrat=titForTwoTats, 
     lessCoopStrat=titForTwoTats, 
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
@@ -29,7 +29,7 @@ unilateralOCostMixedBot1 = UnilateralOCostMixed(
 )
 
 unilateralOCostMixedBot2 = UnilateralOCostMixed(
-    mostCoopStrat=titForTat, 
+    mostCoopStrat=alwaysDefect, 
     lessCoopStrat=titForTwoTats, 
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
