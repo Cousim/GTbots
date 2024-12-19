@@ -3,7 +3,7 @@ from datetime import datetime
 
 class UnilateralClosedMixed():
     bot_number = 0
-    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment, assumeOpponentCommitProb, opponentCoopCommitProb, seed):
+    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeOpponentCommitProb, opponentCoopCommitProb, seed):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
         self.lessDefectStrat = lessDefectStrat
@@ -11,21 +11,17 @@ class UnilateralClosedMixed():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment #no need
         self.assumeCommitProb = assumeOpponentCommitProb
         self.opponentCoopCommitProb = opponentCoopCommitProb
+        self.makeCommitment = False
         self.seed = seed
         UnilateralClosedMixed.bot_number += 1
         self.id = UnilateralClosedMixed.bot_number
 
 
     def makeUnilateralCommitment(self):
-
-        if (self.makeCommitment):
-            self.seed = datetime.now().timestamp()
-            return self.coopCommitProb, self.seed
-        else :
-            pass
+        self.seed = datetime.now().timestamp()
+        return self.coopCommitProb, self.seed
 
 
     def assumeOpponentCommit(self):

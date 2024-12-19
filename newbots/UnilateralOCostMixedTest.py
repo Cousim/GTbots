@@ -21,8 +21,7 @@ unilateralOCostMixedBot1 = UnilateralOCostMixed(
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
-    coopCommitProb=70, 
-    makeCommitment=True, 
+    coopCommitProb=50, 
     payProb=50, 
     opponentCoopCommitProb=0, 
     assumeOppCommitProb=50,
@@ -35,11 +34,10 @@ unilateralOCostMixedBot2 = UnilateralOCostMixed(
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
     budget=0, 
-    coopCommitProb=80, 
-    makeCommitment=False, 
+    coopCommitProb=50, 
     payProb=50, 
     opponentCoopCommitProb=0, 
-    assumeOppCommitProb=40,
+    assumeOppCommitProb=50,
     seed=0  # Default seed value
 )
 
@@ -60,6 +58,5 @@ unilateralOCostMixedGame = UnilateralOCostMixedGame(
 )
 
 # Run the game
-unilateralOCostMixedGame.gametime()
 unilateralOCostMixedGame.gametime()
 

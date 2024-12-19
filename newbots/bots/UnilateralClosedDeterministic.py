@@ -4,7 +4,7 @@ from datetime import datetime
 
 class UnilateralClosedDeterministic():
     bot_number = 0
-    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment, assumeCommitProb, commitType, opponentCoopCommitType):
+    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeCommitProb, commitType, opponentCoopCommitType):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
         self.lessDefectStrat = lessDefectStrat
@@ -12,8 +12,8 @@ class UnilateralClosedDeterministic():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment #no need
         self.assumeCommit = assumeCommitProb
+        self.makeCommitment = False
         self.commitType = commitType #true for coop, false for defect
         self.opponentCoopCommitType = opponentCoopCommitType
         UnilateralClosedDeterministic.bot_number += 1
@@ -23,16 +23,14 @@ class UnilateralClosedDeterministic():
         self.commitType = type #true for coop, false for defect
 
     def makeUnilateralCommitment(self):
-        random.seed(datetime.now().timestamp())
-        if (self.makeCommitment):
+            random.seed(datetime.now().timestamp())
             if (random.randrange(1,101) < self.coopCommitProb) : 
                 self.setCommitType(True)
                 return self.commitType #return cooperation commitment if true
             else : 
                 self.setCommitType(False)
                 return self.commitType #return defection commitment if false
-        else :
-            pass
+
 
 
     def assumeOpponentCommit(self):

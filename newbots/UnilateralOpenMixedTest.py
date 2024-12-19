@@ -22,7 +22,6 @@ unilateralOCostMixedBot1 = UnilateralOpenMixed(
     mostDefectStrat=grimTrigger, 
     budget=0, 
     coopCommitProb=70, 
-    makeCommitment=False, 
     opponentCoopCommitProb=0, 
     seed=0  # Default seed value
 )
@@ -34,7 +33,6 @@ unilateralOCostMixedBot2 = UnilateralOpenMixed(
     mostDefectStrat=alwaysDefect, 
     budget=0, 
     coopCommitProb=80, 
-    makeCommitment=False, 
     opponentCoopCommitProb=0, 
     seed=0  # Default seed value
 )

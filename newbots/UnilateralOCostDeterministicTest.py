@@ -21,10 +21,9 @@ unilateralOCostDeterministicBot1 = UnilateralOCostDeterministic(
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
-    coopCommitProb=70, 
+    coopCommitProb=50, 
     assumeCommitProb=50, 
     payProb=50, 
-    makeCommitment=True, 
     commitType=True,  # Example value for commitType
     opponentCoopCommitType=False  # Example value for opponentCoopCommitType
 )
@@ -35,10 +34,9 @@ unilateralOCostDeterministicBot2 = UnilateralOCostDeterministic(
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
     budget=0, 
-    coopCommitProb=80, 
+    coopCommitProb=50, 
     assumeCommitProb=50, 
     payProb=50, 
-    makeCommitment=False, 
     commitType=False,  # Example value for commitType
     opponentCoopCommitType=True  # Example value for opponentCoopCommitType
 )

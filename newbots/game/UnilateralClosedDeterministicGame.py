@@ -15,7 +15,8 @@ class UnilateralClosedDeterministicGame():
             
     def takeUnilateralCommitment(self):
         self.bot1.makeCommitment = True
-        bot1Commitment = self.bot1.makeCommitment()
+        self.bot2.makeCommitment = False
+        bot1Commitment = self.bot1.makeUnilateralCommitment()
 
         if (bot1Commitment) :
             self.bot1PayoffMatrix.update({"CC": self.bot1PayoffMatrix.get("CC") + self.commitment})
@@ -31,8 +32,7 @@ class UnilateralClosedDeterministicGame():
 
     
     def assumeCommitment(self):
-        if (self.bot1.makeCommitment) : self.bot1.opponentCommitType = self.bot1.assumeOpponentCommit()
-        else : self.bot2.opponentCommitType = self.bot2.assumeOpponentCommit()
+        self.bot2.assumeOpponentCommit()
 
 
     def rounds(self):
@@ -49,12 +49,13 @@ class UnilateralClosedDeterministicGame():
 
             self.checkCommitmentAndPayoff(i)
             roundStr = str(i)
-            print("This round moves: "+self.bot1.history[i]+self.bot1.history[i+1])
+            print("This round moves: "+self.bot1.history[2*i]+self.bot1.history[2*i+1])
             print("Round "+roundStr+" Bot 1 Budget: "+
                   str(self.bot1.budget))
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
             
+        print(self.bot1.history)
         self.bot1.history = []
         self.bot2.history = []
         

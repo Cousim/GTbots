@@ -21,8 +21,7 @@ unilateralClosedMixedBot1 = UnilateralClosedMixed(
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
-    coopCommitProb=70, 
-    makeCommitment=True,  # Example value for makeCommitment
+    coopCommitProb=50, 
     assumeOpponentCommitProb=50, 
     opponentCoopCommitProb=50, 
     seed=0  # Default value for seed
@@ -34,8 +33,7 @@ unilateralClosedMixedBot2 = UnilateralClosedMixed(
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
     budget=0, 
-    coopCommitProb=80, 
-    makeCommitment=False,  # Example value for makeCommitment
+    coopCommitProb=50, 
     assumeOpponentCommitProb=50, 
     opponentCoopCommitProb=50, 
     seed=0  # Default value for seed
@@ -57,5 +55,4 @@ unilateralClosedMixedGame = UnilateralClosedMixedGame(
 )
 
 # Run the game
-unilateralClosedMixedGame.gametime()
 unilateralClosedMixedGame.gametime()

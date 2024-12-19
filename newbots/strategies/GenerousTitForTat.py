@@ -1,5 +1,6 @@
 class GenerousTitForTat():
     def play(self, botHistory, botBudget, roundNum):
+        print("Generous tit for tat")
         revenge = False
         if botHistory == [] or len(botHistory) < 4:
             return True

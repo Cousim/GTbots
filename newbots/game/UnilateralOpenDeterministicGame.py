@@ -12,14 +12,9 @@ class UnilateralOpenDeterministicGame():
         self.gameHistory = []
     
     def takeUnilateralCommitment(self):
-        random.seed(datetime.now().timestamp())
-        if (random.randrange(1, 101)<51) :
-            self.bot1.makeCommitment = True
-        else :
-            self.bot2.makeCommitment = True
-
-        bot1Commitment = self.bot1.makeCommitment
-        bot2Commitment = self.bot2.makeCommitment
+        self.bot1.makeCommitment = True
+        self.bot2.makeCommitment = False
+        bot1Commitment = self.bot1.makeUnilateralCommitment()
 
         if (bot1Commitment) :
             self.bot1PayoffMatrix.update({"CC": self.bot1PayoffMatrix.get("CC") + self.commitment})
@@ -32,21 +27,9 @@ class UnilateralOpenDeterministicGame():
             self.bot1PayoffMatrix.update({"DC": self.bot1PayoffMatrix.get("DC") + self.commitment})
             self.bot1PayoffMatrix.update({"DD": self.bot1PayoffMatrix.get("DD") + self.commitment})
 
-        if (bot2Commitment) :
-            self.bot2PayoffMatrix.update({"CC": self.bot2PayoffMatrix.get("CC") + self.commitment})
-            self.bot2PayoffMatrix.update({"CD": self.bot2PayoffMatrix.get("CD") + self.commitment})
-            self.bot2PayoffMatrix.update({"DC": self.bot2PayoffMatrix.get("DC") + self.punishment})
-            self.bot2PayoffMatrix.update({"DD": self.bot2PayoffMatrix.get("DD") + self.punishment})
-        else : 
-            self.bot2PayoffMatrix.update({"CC": self.bot2PayoffMatrix.get("CC") + self.punishment})
-            self.bot2PayoffMatrix.update({"CD": self.bot2PayoffMatrix.get("CD") + self.punishment})
-            self.bot2PayoffMatrix.update({"DC": self.bot2PayoffMatrix.get("DC") + self.commitment})
-            self.bot2PayoffMatrix.update({"DD": self.bot2PayoffMatrix.get("DD") + self.commitment})
-
     
     def setOpponentCommitment(self):
-        if (self.bot1.makeCommitment) : self.bot2.opponentCommitType = self.bot1.commitType
-        else : self.bot1.opponentCommitType = self.bot2.commitType
+        self.bot2.opponentCommitType = self.bot1.commitType
 
 
     def rounds(self):
@@ -70,6 +53,7 @@ class UnilateralOpenDeterministicGame():
                   str(self.bot2.budget))
             
             
+        print(self.bot1.history)
         self.bot1.history = []
         self.bot2.history = []
 

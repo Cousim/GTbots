@@ -7,6 +7,7 @@ class Randomized():
         self.prob = prob
 
     def play(self, botHistory, botBudget, roundNum):
+        print("Random")
         if (random.randrange(0,101)<self.prob) : return True
         else : return False
 

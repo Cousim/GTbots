@@ -1,6 +1,7 @@
 class TitForTat():
 
     def play(self, botHistory, botBudget, roundNum) :
+        print("Titfortat")
         if botHistory == []:
             return True #True for cooperation
         else:

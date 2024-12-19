@@ -11,42 +11,26 @@ class UnilateralOpenMixedGame():
         self.commitment = commitment
         self.punishment = punishment
         self.bot1CommitMoves = []
-        self.bot2CommitMoves = []
         self.gameHistory = []
     
     
     def takeUnilateralCommitment(self):
-        random.seed(datetime.now().timestamp())
-        if (random.randrange(1, 101)<51) :
-            self.bot1.makeCommitment = True
-        else :
-            self.bot2.makeCommitment = True
+        self.bot1.makeCommitment = True
+        self.bot2.makeCommitment = False
+        bot1CommitProb, bot1Seed = self.bot1.makeMixedCommitment()
+        random.seed(bot1Seed)
+        for i in range(self.game_length):
+            if (random.randrange(1,101) <= bot1CommitProb) : 
+                    self.bot1CommitMoves.append("C")
+            else : 
+                self.bot1CommitMoves.append("D")
 
-        bot1Commitment = self.bot1.makeCommitment
-        bot2Commitment = self.bot2.makeCommitment
-
-        if (bot1Commitment) :
-            bot1CommitProb, bot1Seed = self.bot1.makeMixedCommitment()
-            random.seed(bot1Seed)
-            for i in range(self.game_length):
-                if (random.randrange(1,101) <= bot1CommitProb) : 
-                        self.bot1CommitMoves.append("C")
-                else : 
-                    self.bot1CommitMoves.append("D")
-        if (bot2Commitment) :
-            bot2CommitProb, bot2Seed = self.bot2.makeMixedCommitment()
-            random.seed(bot2Seed)
-            for i in range(self.game_length):
-                if (random.randrange(1,101) <= bot2CommitProb) : 
-                    self.bot2CommitMoves.append("C")
-                else : 
-                    self.bot2CommitMoves.append("D")
 
 
     
     def setOpponentCommitment(self):
-        if (self.bot1.makeCommitment) : self.bot2.opponentCommitProb = self.bot1.coopCommitProb
-        else : self.bot1.opponentCommitProb = self.bot2.coopCommitProb
+        self.bot2.opponentCommitProb = self.bot1.coopCommitProb
+        self.bot1.opponentCommitProb = self.bot2.coopCommitProb
 
 
     def rounds(self):
@@ -69,6 +53,7 @@ class UnilateralOpenMixedGame():
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
             
+        print(self.bot1.history)
         self.bot1.history = []
         self.bot2.history = []
 
@@ -85,11 +70,6 @@ class UnilateralOpenMixedGame():
             else : 
                 self.bot1.budget += self.punishment
         
-        if (self.bot2.makeCommitment):
-            if (self.bot2CommitMoves[roundNum] == self.bot2.history[2*roundNum]) :
-                self.bot2.budget += self.commitment
-            else : 
-                self.bot2.budget += self.punishment
 
 
 

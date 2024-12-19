@@ -6,6 +6,7 @@ from strategies.TitForTwoTats import TitForTwoTats
 from strategies.Pavlov import Pavlov
 from strategies.GrimTrigger import GrimTrigger
 from strategies.AlwaysDefect import AlwaysDefect
+from strategies.AlwaysCooperate import AlwaysCooperate
 
 # Define strategies
 titForTat = TitForTat()
@@ -13,6 +14,7 @@ titForTwoTats = TitForTwoTats()
 pavlov = Pavlov()
 grimTrigger = GrimTrigger()
 alwaysDefect = AlwaysDefect()
+alwaysCoop = AlwaysCooperate()
 
 # Create bot instances
 unilateralClosedDeterministicBot1 = UnilateralClosedDeterministic(
@@ -21,8 +23,7 @@ unilateralClosedDeterministicBot1 = UnilateralClosedDeterministic(
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
-    coopCommitProb=70, 
-    makeCommitment=True,  # Example value for makeCommitment
+    coopCommitProb=50, 
     assumeCommitProb=50, 
     commitType=False,  # Default value for commitType
     opponentCoopCommitType=False  # Default value for opponentCoopCommitType
@@ -34,8 +35,7 @@ unilateralClosedDeterministicBot2 = UnilateralClosedDeterministic(
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
     budget=0, 
-    coopCommitProb=80, 
-    makeCommitment=False,  # Example value for makeCommitment
+    coopCommitProb=50,
     assumeCommitProb=50, 
     commitType=False,  # Default value for commitType
     opponentCoopCommitType=False  # Default value for opponentCoopCommitType

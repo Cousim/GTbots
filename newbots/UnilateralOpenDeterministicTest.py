@@ -21,8 +21,7 @@ unilateralOpenDeterministicBot1 = UnilateralOpenDeterministic(
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
-    coopCommitProb=70, 
-    makeCommitment=True, 
+    coopCommitProb=50, 
     commitType=True,  # True as a default value, can change
     opponentCoopCommitType=True  # True as a default value, can change
 )
@@ -33,8 +32,7 @@ unilateralOpenDeterministicBot2 = UnilateralOpenDeterministic(
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
     budget=0, 
-    coopCommitProb=80, 
-    makeCommitment=False, 
+    coopCommitProb=50, 
     commitType=False,  # False as a default value
     opponentCoopCommitType=True  # True as a default value
 )

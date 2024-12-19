@@ -5,7 +5,7 @@ from datetime import datetime
 
 class UnilateralOpenDeterministic():
     bot_number = 0
-    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, makeCommitment, commitType, opponentCoopCommitType):
+    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, commitType, opponentCoopCommitType):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
         self.lessDefectStrat = lessDefectStrat
@@ -13,7 +13,7 @@ class UnilateralOpenDeterministic():
         self.coopCommitProb = coopCommitProb
         self.budget = budget
         self.history = []
-        self.makeCommitment = makeCommitment #no need
+        self.makeCommitment = False
         self.commitType = commitType #true for coop, false for defect
         self.opponentCoopCommitType = opponentCoopCommitType
         UnilateralOpenDeterministic.bot_number += 1
@@ -23,16 +23,13 @@ class UnilateralOpenDeterministic():
         self.commitType = type #true for coop, false for defect
 
     def makeUnilateralCommitment(self):
-        random.seed(datetime.now().timestamp())
-        if (self.makeCommitment):
-            if (random.randrange(1,101) < self.coopCommitProb) : 
-                self.setCommitType(True)
-                return self.commitType #return cooperation commitment if true
-            else : 
-                self.setCommitType(False)
-                return self.commitType #return defection commitment if false
-        else :
-            pass
+        if (random.randrange(1,101) < self.coopCommitProb) : 
+            self.setCommitType(True)
+            return self.commitType #return cooperation commitment if true
+        else : 
+            self.setCommitType(False)
+            return self.commitType #return defection commitment if false
+
 
 
     def setOpponentCoopCommit(self, opponentCoopCommit):

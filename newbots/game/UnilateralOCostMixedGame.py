@@ -13,50 +13,24 @@ class UnilateralOCostMixedGame():
         self.punishment = punishment
         self.observation_cost = observation_cost
         self.bot1CommitMoves = []
-        self.bot2CommitMoves = []
         self.gameHistory = []
 
     
     def takeUnilateralCommitment(self):
-        random.seed(datetime.now().timestamp())
-        if (random.randrange(1, 101)<51) :
-            self.bot1.makeCommitment = True
-        else :
-            self.bot2.makeCommitment = True
+        self.bot1.makeCommitment = True
+        self.bot2.makeCommitment = False
+        bot1CommitProb, bot1Seed = self.bot1.makeUnilateralCommitment()
+        random.seed(bot1Seed)
+        for i in range(self.game_length):
+            if (random.randrange(1,101) <= bot1CommitProb) : 
+                    self.bot1CommitMoves.append("C")
+            else : 
+                self.bot1CommitMoves.append("D")
 
-        bot1Commitment = self.bot1.makeCommitment
-        bot2Commitment = self.bot2.makeCommitment
-
-        if (bot1Commitment) :
-            bot1CommitProb, bot1Seed = self.bot1.makeUnilateralCommitment()
-            random.seed(bot1Seed)
-            for i in range(self.game_length):
-                if (random.randrange(1,101) <= bot1CommitProb) : 
-                        self.bot1CommitMoves.append("C")
-                else : 
-                    self.bot1CommitMoves.append("D")
-        if (bot2Commitment) :
-            bot2CommitProb, bot2Seed = self.bot2.makeUnilateralCommitment()
-            random.seed(bot2Seed)
-            for i in range(self.game_length):
-                if (random.randrange(1,101) <= bot2CommitProb) : 
-                    self.bot2CommitMoves.append("C")
-                else : 
-                    self.bot2CommitMoves.append("D")
 
         
     def payForCommitment(self):
-        bot1pays = False
-        bot2pays = False
-
-        if (self.bot1.makeCommitment) : bot2pays = self.bot2.payObservationCost()
-        else: bot1pays = self.bot1.payObservationCost()
-        
-        if (bot1pays) :
-            self.bot1.budget -= self.observation_cost
-            self.bot1.opponentCommitProb = self.bot2.coopCommitProb
-        else : 
-            self.bot1.assumeOpponentCommit()
+        bot2pays = self.bot2.payObservationCost()
 
         if (bot2pays) :
             self.bot2.budget -= self.observation_cost
@@ -67,10 +41,6 @@ class UnilateralOCostMixedGame():
     def setOpponentCommitment(self):
         if (self.bot1.makeCommitment) : self.bot2.opponentCommitProb = self.bot1.coopCommitProb
         else : self.bot1.opponentCommitProb = self.bot2.coopCommitProb
-
-    def assumeOpponentCommitment(self):
-        if (self.bot1.makeCommitment) : self.bot2.assumeOpponentCommit()
-        else : self.bot1.assumeOpponentCommit()
 
 
     def rounds(self):
@@ -87,12 +57,13 @@ class UnilateralOCostMixedGame():
 
             self.checkCommitmentAndPayoff(i)
             roundStr = str(i)
-            print("This round moves: "+self.bot1.history[i]+self.bot1.history[i+1])
+            print("This round moves: "+self.bot1.history[2*i]+self.bot1.history[2*i+1])
             print("Round "+roundStr+" Bot 1 Budget: "+
                   str(self.bot1.budget))
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
             
+        print(self.bot1.history)
         self.bot1.history = []
         self.bot2.history = []
 
@@ -109,12 +80,6 @@ class UnilateralOCostMixedGame():
             else : 
                 self.bot1.budget += self.punishment
         
-        if (self.bot2.makeCommitment):
-            if (self.bot2CommitMoves[roundNum] == self.bot2.history[2*roundNum]) :
-                self.bot2.budget += self.commitment
-            else : 
-                self.bot2.budget += self.punishment
-
 
 
     def gametime(self):
@@ -123,4 +88,4 @@ class UnilateralOCostMixedGame():
         self.rounds()
 
     def sendMixedMatchupInfo(self):
-        return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]
+        return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, None, self.gameHistory]
