@@ -21,10 +21,10 @@ unilateralOCostMixedBot1 = UnilateralOCostMixed(
     lessDefectStrat=pavlov, 
     mostDefectStrat=grimTrigger, 
     budget=0, 
-    coopCommitProb=50, 
-    payProb=50, 
+    coopCommitProb=100, 
+    payProb=100, 
     opponentCoopCommitProb=0, 
-    assumeOppCommitProb=50,
+    assumeOppCommitProb=100,
     seed=0  # Default seed value
 )
 
@@ -34,10 +34,10 @@ unilateralOCostMixedBot2 = UnilateralOCostMixed(
     lessDefectStrat=pavlov, 
     mostDefectStrat=alwaysDefect, 
     budget=0, 
-    coopCommitProb=50, 
-    payProb=50, 
+    coopCommitProb=100, 
+    payProb=100, 
     opponentCoopCommitProb=0, 
-    assumeOppCommitProb=50,
+    assumeOppCommitProb=100,
     seed=0  # Default seed value
 )
 

@@ -37,11 +37,11 @@ class UnilateralOpenDeterministic():
 
     def inTurn(self, roundNum):
         if (self.makeCommitment) :
-            if (self.commitType) : self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
-            else : self.mostDefectStrat.play(self.history, self.budget, roundNum) # both defect commit
+            if (self.commitType) : return self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
+            else : return self.mostDefectStrat.play(self.history, self.budget, roundNum) # both defect commit
         else : 
-            if (self.opponentCoopCommitType) : self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
-            else : self.mostDefectStrat.play(self.history, self.budget, roundNum) # both defect commit
+            if (self.opponentCoopCommitType) : return self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
+            else : return self.mostDefectStrat.play(self.history, self.budget, roundNum) # both defect commit
 
 
 

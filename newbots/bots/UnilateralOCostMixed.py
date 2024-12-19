@@ -36,7 +36,7 @@ class UnilateralOCostMixed():
         self.opponentCoopCommitProb = self.assumeOppCommitProb
 
     def inTurn(self, roundNum):
-        self.mostCoopStrat.play(self.history, self.budget, roundNum)
+        return self.mostCoopStrat.play(self.history, self.budget, roundNum)
 
 
 
