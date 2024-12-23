@@ -1,34 +1,9 @@
 import sys
+from AlwaysCooperate import *
+from GenerousTitForTat import *
+from Pavlov import *
 
-class AlwaysCooperate(): 
-    def play(self, botHistory, botBudget, roundNum):
-        print("Always Cooperate")
-        return True
 
-class GenerousTitForTat():
-    def play(self, botHistory, botBudget, roundNum):
-        print("Generous tit for tat")
-        revenge = False
-        if botHistory == [] or len(botHistory) < 4:
-            return True
-        else:
-            if (botHistory[2*roundNum-1] == "D" and botHistory[2*roundNum-3] == "D"):
-                revenge = True
-                return False
-            elif revenge:
-                revenge = False
-                return False
-            else:
-                return True
-
-class Pavlov():
-    def play(self, botHistory, botBudget, roundNum):
-        print("Pavlov")
-        if botHistory == []:
-            return True
-        if (botHistory[2*roundNum-2] == "C") and (botHistory[2*roundNum-1] == "D"):
-            return False
-        return True
 
 def play_game(strategy_class):
     print("\nWelcome to the Prisoner's Dilemma Game!")

@@ -1,15 +1,26 @@
 class GenerousTitForTat():
+    def __init__(self):
+        self.revenge = False
+
+    def setRevenge(self, flag):
+        self.revenge = flag
+
+    def getRevenge(self):
+        return self.revenge
+    
     def play(self, botHistory, botBudget, roundNum):
         print("Generous tit for tat")
-        revenge = False
+        if botHistory == []:
+            self.setRevenge(False)
+
         if botHistory == [] or len(botHistory) < 4:
             return True
         else:
-            if revenge:
-                revenge = False
+            if self.getRevenge():
+                self.setRevenge(False)
                 return False
             elif (botHistory[2*roundNum-1] == "D" and botHistory[2*roundNum-3] == "D"):
-                revenge = True
+                self.setRevenge(True)
                 return False
             else:
                 return True
