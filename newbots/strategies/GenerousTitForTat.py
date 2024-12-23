@@ -5,11 +5,11 @@ class GenerousTitForTat():
         if botHistory == [] or len(botHistory) < 4:
             return True
         else:
-            if (botHistory[2*roundNum-1] == "D" and botHistory[2*roundNum-3] == "D"):
-                revenge = True
-                return False
-            elif revenge:
+            if revenge:
                 revenge = False
+                return False
+            elif (botHistory[2*roundNum-1] == "D" and botHistory[2*roundNum-3] == "D"):
+                revenge = True
                 return False
             else:
                 return True
