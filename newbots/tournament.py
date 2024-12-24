@@ -155,9 +155,15 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
         tourCount = 0
 
     tournamentID = machine_identifier + str(tourCount)
-    sql = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
-    val = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
-    db_cursor.execute(sql,val)
+    sql1 = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
+    val1 = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
+    db_cursor.execute(sql1,val1)
+
+    db_connection.commit()
+
+    sql2 = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
+    val2 = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
+    db_cursor.execute(sql2, val2)
 
     db_connection.commit()
     
