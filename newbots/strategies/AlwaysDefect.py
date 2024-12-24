@@ -6,3 +6,6 @@ class AlwaysDefect():
     
     def name(self):
         return "alwaysdefect"
+    
+    def stratInt(self):
+        return 1

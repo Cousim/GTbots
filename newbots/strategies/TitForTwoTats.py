@@ -9,3 +9,6 @@ class TitForTwoTats():
             
     def name(self):
         return "titfortwotats"
+    
+    def stratInt(self):
+        return 7

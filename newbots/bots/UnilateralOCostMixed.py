@@ -3,7 +3,7 @@ from datetime import datetime
 
 class UnilateralOCostMixed():
     bot_number = 0
-    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, payProb, opponentCoopCommitProb, assumeOppCommitProb, seed):
+    def __init__(self, mostCoopStrat, lessCoopStrat, lessDefectStrat, mostDefectStrat, budget, coopCommitProb, assumeOppCommitProb, payProb, opponentCoopCommitProb, seed):
         self.mostCoopStrat = mostCoopStrat
         self.lessCoopStrat = lessCoopStrat
         self.lessDefectStrat = lessDefectStrat

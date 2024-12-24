@@ -12,3 +12,6 @@ class TitForTat():
             
     def name(self):
         return "titfortat"
+    
+    def stratInt(self):
+        return 6

@@ -10,3 +10,6 @@ class Pavlov():
     
     def name(self):
         return "pavlov"
+    
+    def stratInt(self):
+        return 4

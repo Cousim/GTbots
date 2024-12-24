@@ -13,3 +13,6 @@ class Randomized():
 
     def name(self):
         return "randomized"
+    
+    def stratInt(self):
+        return 5

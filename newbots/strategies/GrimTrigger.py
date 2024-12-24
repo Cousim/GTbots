@@ -10,3 +10,6 @@ class GrimTrigger():
 
      def name(self):
         return "grimtrigger"
+
+     def stratInt(self):
+        return 3

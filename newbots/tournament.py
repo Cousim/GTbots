@@ -57,80 +57,81 @@ grimTrigger = GrimTrigger()
 alwaysDefect = AlwaysDefect() 
 
 machine_identifier = "ktg"
-
+                #BilateralClosedDeterministic strategies, budget, coopCommitProb, assumeCommitProb, commitType, opponentCommitType
 playerTypes0 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False]]
 playerProbs0 = [0.25,0.25,0.25,0.25]
-
+                #BilateralClosedMixed strategies, budget, coopCommitProb, assumeCommitProb, opponentCommitProb, seed
 playerTypes1 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 50, 100, 0, 2],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 0, 100, 0, 3],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 4]]
 playerProbs1 = [0.25,0.25,0.25,0.25]
-
+                #BilateralOCostDeterministic strategies, budget, coopCommitProb, assumeCommitProb, payProb, commitType, opponentCoopCommitType
 playerTypes2 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False]]
 playerProbs2 = [0.25,0.25,0.25,0.25]
-
+                #BilateralOCostMixed strategies, budget, coopCommitProb, assumeCommitProb, payProb, opponentCoopCommitProb, seed
 playerTypes3 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0]]
 playerProbs3 = [0.25,0.25,0.25,0.25]
 
-playerTypes4 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1]]
-playerProbs4 = [0.25,0.25,0.25,0.25]
-
-
-playerTypes5 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
+                #BilateralOpenDeterministic, strategies, budget, coopCommitProb, commitType, opponentCoopCommitType
+playerTypes4 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False]]
+playerProbs4 = [0.25,0.25,0.25,0.25]
+                #BilateralOpenMixed, budget, coopCommitProb, opponentCoopCommitProb, seed
+playerTypes5 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
+               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
+               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
+               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0]]
 playerProbs5 = [0.25,0.25,0.25,0.25]
 
 
+                #UnilateralClosedDeterministic, strategies, budget, coopCommitProb, assumeCommitProb, commitType, opponentCoopCommitType
 playerTypes6 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False]]
 playerProbs6 = [0.25,0.25,0.25,0.25]
 
-
+                #UnilateralClosedMixed, strategies, budget, coopCommitProb, assumeOpponentCommitProb, opponentCoopCommitProb, seed
 playerTypes7 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0]]
 playerProbs7 = [0.25,0.25,0.25,0.25]
 
-
+                #UnilateralOCostDeterministic, strategies, budget, coopCommitProb, assumeCommitProb, payProb, commitType, opponentCoopCommitType
 playerTypes8 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False]]
 playerProbs8 = [0.25,0.25,0.25,0.25]
 
-
+                #UnilateralOCostMixed, budget, coopCommitProb, assumeOppCommitProb, payProb, opponentCoopCommitProb, seed
 playerTypes9 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1]]
 playerProbs9 = [0.25,0.25,0.25,0.25]
 
-
+                #UnilateralOpenDeterministic, budget, coopCommitProb, commitType, opponentCoopCommitType
 playerTypes10 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True],
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True],
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True],
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True]]
 playerProbs10 = [0.25,0.25,0.25,0.25]
 
-
+                #UnilateralOpenMixed, budget, coopCommitProb, opponentCoopCommitProb, seed
 playerTypes11 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
@@ -154,6 +155,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
     if tourCount == None:
         tourCount = 0
 
+# not used right now, will be used in nested for loops
+#insert_players = (
+#    "INSERT INTO PLAYERS "
+#    "(player_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, coop_comm_prob, assume_comm_prob, pay_prob, win_count, draw_count, loss_count, tour_id) "
+#    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+#)
     tournamentID = machine_identifier + str(tourCount)
     sql1 = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
     val1 = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
@@ -161,11 +168,6 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
 
     db_connection.commit()
 
-    sql2 = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
-    val2 = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
-    db_cursor.execute(sql2, val2)
-
-    db_connection.commit()
     
     #tournament(0,7,4,playerTypes0, playerProbs0, "CC3DC5CD0DD1", -1, 1)
     bot1PayoffMatrix = stringToDict(payoffs)
@@ -182,7 +184,17 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 commitType=playerTypes[i][7], 
                 opponentCoopCommitType=playerTypes[i][8])
                 bots.append(bot)
+         
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) #pay_prob None cunku closed game
+                db_cursor.execute(sql2, val2)
 
+                db_connection.commit()
+          
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
@@ -213,6 +225,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 )
                 bots.append(bot)
 
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
@@ -231,7 +253,6 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                     count += 1
 
     elif gameType == 2:
-
         count = 0
         for i in range(len(playerTypes)):
             for n in range((math.floor(playerCount*playerProbs[i]))):      
@@ -243,8 +264,18 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 payProb=playerTypes[i][7], 
                 commitType=playerTypes[i][8],  # Default value for commitType
                 opponentCoopCommitType=playerTypes[i][9]  # Default value for opponentCoopCommitType
-            )
+                )
                 bots.append(bot)
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+                
 
         for i in range(playerCount):
             for n in range(playerCount):
@@ -277,6 +308,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 playerTypes[i][9])
                 bots.append(bot)
 
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0) # 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
@@ -290,35 +331,6 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
         count = 0
         for i in range(len(playerTypes)):
             for n in range((math.floor(playerCount*playerProbs[i]))):      
-                bot =BilateralOpenMixed(
-                playerTypes[i][0], playerTypes[i][1], playerTypes[i][2], playerTypes[i][3], 
-                budget=playerTypes[i][4], 
-                coopCommitProb=playerTypes[i][5], 
-                opponentCoopCommitProb=playerTypes[i][6], 
-                seed=playerTypes[i][7]  # Default seed value
-                )
-                bots.append(bot)
-
-        for i in range(playerCount):
-            for n in range(playerCount):
-                if i < n:
-                    print("Game",count,"****************************************************************************************")
-                    BilateralOpenMixedGame(
-                    bots[i], 
-                    bots[n], 
-                    bot1PayoffMatrix, 
-                    bot2PayoffMatrix, 
-                    game_length=gameLength, 
-                    commitment=reward, 
-                    punishment=punishment).gametime()
-                    bot1PayoffMatrix = stringToDict(payoffs)
-                    bot2PayoffMatrix = stringToDict(payoffs)
-                    count += 1
-    
-    elif gameType == 5:
-        count = 0
-        for i in range(len(playerTypes)):
-            for n in range((math.floor(playerCount*playerProbs[i]))):      
                 bot =BilateralOpenDeterministic(
                 playerTypes[i][0], playerTypes[i][1], playerTypes[i][2], playerTypes[i][3],
                 budget=playerTypes[i][4], 
@@ -326,6 +338,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 commitType=playerTypes[i][6], 
                 opponentCoopCommitType=playerTypes[i][7])  
                 bots.append(bot)
+
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
+                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
 
         for i in range(playerCount):
             for n in range(playerCount):
@@ -340,6 +362,45 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+                    bot1PayoffMatrix = stringToDict(payoffs)
+                    bot2PayoffMatrix = stringToDict(payoffs)
+                    count += 1
+    
+    elif gameType == 5:
+        count = 0
+        for i in range(len(playerTypes)):
+            for n in range((math.floor(playerCount*playerProbs[i]))):      
+                bot =BilateralOpenMixed(
+                playerTypes[i][0], playerTypes[i][1], playerTypes[i][2], playerTypes[i][3], 
+                budget=playerTypes[i][4], 
+                coopCommitProb=playerTypes[i][5], 
+                opponentCoopCommitProb=playerTypes[i][6], 
+                seed=playerTypes[i][7]  # Default seed value
+                )
+                bots.append(bot)
+
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
+                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+
+        for i in range(playerCount):
+            for n in range(playerCount):
+                if i < n:
+                    print("Game",count,"****************************************************************************************")
+                    BilateralOpenMixedGame(
+                    bots[i], 
+                    bots[n], 
+                    bot1PayoffMatrix, 
+                    bot2PayoffMatrix, 
+                    game_length=gameLength, 
+                    commitment=reward, 
+                    punishment=punishment).gametime()
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -360,6 +421,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 opponentCoopCommitType=playerTypes[i][8]  # Default value for opponentCoopCommitType
                 ) 
                 bots.append(bot)
+
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) # pay_prob None cunku closed game
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
 
         for i in range(playerCount):
             for n in range(playerCount):
@@ -394,6 +465,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 seed=playerTypes[i][8] 
                 )   
                 bots.append(bot)
+
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
 
         for i in range(playerCount):
             for n in range(playerCount):
@@ -430,6 +511,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 )
                 bots.append(bot)
 
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
@@ -465,6 +556,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 seed=playerTypes[i][9]  # Default seed value
                 )
                 bots.append(bot)
+                
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0) #3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
 
         for i in range(playerCount):
             for n in range(playerCount):
@@ -499,6 +600,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 )
                 bots.append(bot)
 
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
+                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
@@ -532,6 +643,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
                 )
                 bots.append(bot)
 
+                sql2 = """INSERT INTO players 
+                (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                val2 = (bot.id, tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
+                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                db_cursor.execute(sql2, val2)
+
+                db_connection.commit()
+
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
@@ -563,9 +684,9 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payo
 #tournament(3,7,4,playerTypes3, playerProbs3, "CC3DC5CD0DD1", -1, 1)
 #tournament(4,7,4,playerTypes4, playerProbs4, "CC3DC5CD0DD1", -1, 1)
 #tournament(5,7,4,playerTypes5, playerProbs5, "CC3DC5CD0DD1", -1, 1)
-tournament(6,7,4,playerTypes6, playerProbs6, "CC3DC5CD0DD1", -1, 1)
-tournament(7,7,4,playerTypes7, playerProbs7, "CC3DC5CD0DD1", -1, 1)
-tournament(8,7,4,playerTypes8, playerProbs8, "CC3DC5CD0DD1", -1, 1)
-tournament(9,7,4,playerTypes9, playerProbs9, "CC3DC5CD0DD1", -1, 1)
-tournament(10,7,4,playerTypes10, playerProbs10, "CC3DC5CD0DD1", -1, 1)
-tournament(11,7,4,playerTypes11, playerProbs11, "CC3DC5CD0DD1", -1, 1)
+#tournament(6,7,4,playerTypes6, playerProbs6, "CC3DC5CD0DD1", -1, 1)
+#tournament(7,7,4,playerTypes7, playerProbs7, "CC3DC5CD0DD1", -1, 1)
+#tournament(8,7,4,playerTypes8, playerProbs8, "CC3DC5CD0DD1", -1, 1)
+#tournament(9,7,4,playerTypes9, playerProbs9, "CC3DC5CD0DD1", -1, 1)
+#tournament(10,7,4,playerTypes10, playerProbs10, "CC3DC5CD0DD1", -1, 1)
+#tournament(11,7,4,playerTypes11, playerProbs11, "CC3DC5CD0DD1", -1, 1)

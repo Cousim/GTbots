@@ -6,3 +6,6 @@ class AlwaysCooperate():
     
     def name(self): 
         return "alwayscooperate"
+    
+    def stratInt(self):
+        return 0

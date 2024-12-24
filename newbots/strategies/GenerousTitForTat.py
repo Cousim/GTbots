@@ -27,3 +27,6 @@ class GenerousTitForTat():
             
     def name(self):
         return "generoustitfortat"
+    
+    def stratInt(self):
+        return 2
