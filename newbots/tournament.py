@@ -1,3 +1,10 @@
+import mysql.connector
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import csv
+
 import math
 from bots.BilateralClosedDeterministic import BilateralClosedDeterministic
 from game.BilateralClosedDeterministicGame import BilateralClosedDeterministicGame
@@ -30,6 +37,18 @@ from strategies.Pavlov import Pavlov
 from strategies.GrimTrigger import GrimTrigger
 from strategies.AlwaysDefect import AlwaysDefect
 
+db_connection = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="1234", 
+  auth_plugin='mysql_native_password'
+)
+
+# creating database_cursor to perform SQL operation to run queries
+db_cursor = db_connection.cursor(buffered=False)
+
+db_cursor.execute("USE gametheory")
+
 # Define strategies
 titForTat = TitForTat()
 titForTwoTats = TitForTwoTats() 
@@ -38,8 +57,6 @@ grimTrigger = GrimTrigger()
 alwaysDefect = AlwaysDefect() 
 
 machine_identifier = "ktg"
-tournament_count = 0
-
 
 playerTypes0 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
@@ -71,6 +88,7 @@ playerTypes4 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1]]
 playerProbs4 = [0.25,0.25,0.25,0.25]
 
+
 playerTypes5 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
@@ -91,7 +109,7 @@ playerTypes7 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0]]
 playerProbs7 = [0.25,0.25,0.25,0.25]
 
-#8
+
 playerTypes8 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
@@ -128,7 +146,22 @@ def stringToDict(payoffStr):
 
 def tournament(gameType, gameLength, playerCount, playerTypes, playerProbs, payoffs, punishment, reward):
     bots = []
-    #ADD TO DB: tourn_id gametype gamelength playercount payoff punishment reward
+    db_cursor.execute("""SELECT COUNT(*) FROM TOURNAMENTS""")
+    result = db_cursor.fetchone()
+    tourCount = result[0]
+    print(tourCount)
+    db_cursor.fetchall()
+    if tourCount == None:
+        tourCount = 0
+
+    tournamentID = machine_identifier + str(tourCount)
+    sql = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
+    val = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
+    db_cursor.execute(sql,val)
+
+    db_connection.commit()
+    
+    #tournament(0,7,4,playerTypes0, playerProbs0, "CC3DC5CD0DD1", -1, 1)
     bot1PayoffMatrix = stringToDict(payoffs)
     bot2PayoffMatrix = stringToDict(payoffs)
     if gameType == 0:
