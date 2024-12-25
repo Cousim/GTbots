@@ -19,6 +19,9 @@ class UnilateralOCostDeterministic():
         self.opponentCoopCommitType = opponentCoopCommitType
         UnilateralOCostDeterministic.bot_number += 1
         self.id = UnilateralOCostDeterministic.bot_number
+    
+    def getID(self):
+        return self.id
 
     def setCommitType(self, type):
         self.commitType = type #true for coop, false for defect

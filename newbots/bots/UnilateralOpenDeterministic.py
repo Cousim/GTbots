@@ -19,6 +19,9 @@ class UnilateralOpenDeterministic():
         UnilateralOpenDeterministic.bot_number += 1
         self.id = UnilateralOpenDeterministic.bot_number
 
+    def getID(self):
+        return self.id
+
     def setCommitType(self, type):
         self.commitType = type #true for coop, false for defect
 

@@ -16,6 +16,9 @@ class BilateralOpenMixed():
         BilateralOpenMixed.bot_number += 1
         self.id = BilateralOpenMixed.bot_number
 
+    def getID(self):
+        return self.id
+
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()
         return self.coopCommitProb, self.seed

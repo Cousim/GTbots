@@ -17,6 +17,8 @@ class UnilateralOpenMixed():
         UnilateralOpenMixed.bot_number += 1
         self.id = UnilateralOpenMixed.bot_number
 
+    def getID(self):
+        return self.id
 
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()

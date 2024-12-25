@@ -18,6 +18,9 @@ class BilateralOCostMixed():
         BilateralOCostMixed.bot_number += 1
         self.id = BilateralOCostMixed.bot_number
 
+    def getID(self):
+        return self.id
+
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()
         return self.coopCommitProb, self.seed

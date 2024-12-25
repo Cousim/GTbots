@@ -20,6 +20,9 @@ class BilateralClosedMixed():
         self.seed = seed
         BilateralClosedMixed.bot_number += 1
         self.id = BilateralClosedMixed.bot_number
+    
+    def getID(self):
+        return self.id
 
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()

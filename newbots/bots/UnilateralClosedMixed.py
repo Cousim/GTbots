@@ -18,6 +18,8 @@ class UnilateralClosedMixed():
         UnilateralClosedMixed.bot_number += 1
         self.id = UnilateralClosedMixed.bot_number
 
+    def getID(self):
+        return self.id
 
     def makeUnilateralCommitment(self):
         self.seed = datetime.now().timestamp()
