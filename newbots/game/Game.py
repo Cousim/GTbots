@@ -25,13 +25,11 @@ def rounds(self):
         self.bot2.history.append(bot2Move)
         self.bot2.history.append(bot1Move)
 
-
         checkCommitmentAndPayoff(self.bot1)
         checkCommitmentAndPayoff(self.bot2)
 
     self.bot1.history = []
     self.bot2.history = []
-
 
 def checkCommitmentAndPayoff(bot):
     pass

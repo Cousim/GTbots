@@ -31,6 +31,8 @@ class BilateralOpenMixedGame():
                 self.bot2CommitMoves.append("C")
             else : 
                 self.bot2CommitMoves.append("D")
+        
+        return [bot1CommitProb, bot2CommitProb]
 
 
     
@@ -40,6 +42,7 @@ class BilateralOpenMixedGame():
 
 
     def rounds(self):
+        scores = [0, 0]
         for i in range(self.game_length):
             bot1Move = self.bot1.inTurn(i)
             bot2Move = self.bot2.inTurn(i)
@@ -50,8 +53,10 @@ class BilateralOpenMixedGame():
             self.bot2.history.append(("C" if bot2Move else "D"))
             self.bot2.history.append(("C" if bot1Move else "D"))
 
+            payoffs = self.checkCommitmentAndPayoff(i)
+            scores[0] += payoffs[0]
+            scores[1] += payoffs[1]
 
-            self.checkCommitmentAndPayoff(i)
             roundStr = str(i)
             print("This round moves: "+self.bot1.history[i]+self.bot1.history[i+1])
             print("Round "+roundStr+" Bot 1 Budget: "+
@@ -59,30 +64,43 @@ class BilateralOpenMixedGame():
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
             
-            
+        self.gameHistory = self.bot1.history
         self.bot1.history = []
         self.bot2.history = []
+        
+        historyString = ""
+        for s in self.gameHistory:
+            historyString += s
+
+        return [historyString, scores]
 
 
     def checkCommitmentAndPayoff(self, roundNum):
-        self.bot1.budget += self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])
-        self.bot2.budget += self.bot2PayoffMatrix.get(self.bot2.history[2*roundNum]+self.bot2.history[1+2*roundNum])
+        payoff1 = self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])
+        payoff2 = self.bot2PayoffMatrix.get(self.bot2.history[2*roundNum]+self.bot2.history[1+2*roundNum])
         if (self.bot1CommitMoves[roundNum] == self.bot1.history[2*roundNum]) :
-            self.bot1.budget += self.commitment
+            payoff1 += self.commitment
         else : 
-            self.bot1.budget += self.punishment
+            payoff1 += self.punishment
     
         if (self.bot2CommitMoves[roundNum] == self.bot2.history[2*roundNum]) :
-            self.bot2.budget += self.commitment
+            payoff2 += self.commitment
         else : 
-            self.bot2.budget += self.punishment
+            payoff2 += self.punishment
+        
+        self.bot1.budget += payoff1
+        self.bot2.budget += payoff2
+
+        return [payoff1, payoff2]
 
 
 
     def gametime(self):
-        self.takeBilateralCommitment()
+        commitments = self.takeBilateralCommitment()
         self.setOpponentCommitment()
-        self.rounds()
+        historyAndPayoffs = self.rounds()
+
+        return (historyAndPayoffs, commitments)
         
     def sendMixedMatchupInfo(self):
         return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]

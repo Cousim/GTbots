@@ -25,13 +25,9 @@ class UnilateralOpenMixedGame():
             else : 
                 self.bot1CommitMoves.append("D")
 
-
-
-    
     def setOpponentCommitment(self):
         self.bot2.opponentCommitProb = self.bot1.coopCommitProb
         self.bot1.opponentCommitProb = self.bot2.coopCommitProb
-
 
     def rounds(self):
         for i in range(self.game_length):
@@ -52,8 +48,10 @@ class UnilateralOpenMixedGame():
                   str(self.bot1.budget))
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
-            
+
         print(self.bot1.history)
+        
+        self.gameHistory = self.bot1.history
         self.bot1.history = []
         self.bot2.history = []
 

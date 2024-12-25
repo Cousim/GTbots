@@ -25,15 +25,8 @@ class UnilateralClosedMixed():
         self.seed = datetime.now().timestamp()
         return self.coopCommitProb, self.seed
 
-
     def assumeOpponentCommit(self):
         self.opponentCoopCommitProb = self.assumeCommitProb
 
     def inTurn(self, roundNum):
         return self.mostCoopStrat.play(self.history, self.budget, roundNum)
-
-
-
-
-    
-            

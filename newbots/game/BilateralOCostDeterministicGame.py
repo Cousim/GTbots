@@ -36,6 +36,7 @@ class BilateralOCostDeterministicGame():
             self.bot2PayoffMatrix.update({"DC": self.bot2PayoffMatrix.get("DC") + self.commitment})
             self.bot2PayoffMatrix.update({"DD": self.bot2PayoffMatrix.get("DD") + self.commitment})
 
+        return [bot1Commitment, bot2Commitment]
     
     def payForCommitment(self):
         bot1pays = self.bot1.payObservationCost()
@@ -54,6 +55,7 @@ class BilateralOCostDeterministicGame():
             self.bot2.assumeOpponentCommit()
 
     def rounds(self):
+        scores = [0, 0]
         for i in range(self.game_length):
             bot1Move = self.bot1.inTurn(i)
             bot2Move = self.bot2.inTurn(i)
@@ -64,6 +66,9 @@ class BilateralOCostDeterministicGame():
             self.bot2.history.append(("C" if bot2Move else "D"))
             self.bot2.history.append(("C" if bot1Move else "D"))
 
+            payoffs = self.checkCommitmentAndPayoff(i)
+            scores[0] += payoffs[0]
+            scores[1] += payoffs[1]
 
             self.checkCommitmentAndPayoff(i)
             roundStr = str(i)
@@ -73,21 +78,33 @@ class BilateralOCostDeterministicGame():
             print("Round "+roundStr+" Bot 2 Budget: "+
                   str(self.bot2.budget))
 
+        self.gameHistory = self.bot1.history
         self.bot1.history = []
         self.bot2.history = []
 
         self.bot1.opponentCommitType = False
         self.bot2.opponentCommitType = False
 
+        historyString = ""
+        for s in self.gameHistory:
+            historyString += s
+
+        return [historyString, scores]
+
 
     def checkCommitmentAndPayoff(self, roundNum):
-        self.bot1.budget += self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])
-        self.bot2.budget += self.bot2PayoffMatrix.get(self.bot2.history[2*roundNum]+self.bot2.history[1+2*roundNum])
+        payoff1 = self.bot1PayoffMatrix.get(self.bot1.history[2*roundNum]+self.bot1.history[1+2*roundNum])
+        payoff2 = self.bot2PayoffMatrix.get(self.bot2.history[2*roundNum]+self.bot2.history[1+2*roundNum])
+        self.bot1.budget += payoff1
+        self.bot2.budget += payoff2
+
+        return [payoff1, payoff2]
 
     def gametime(self):
-        self.takeBilateralCommitment()
+        commitments = self.takeBilateralCommitment()
         self.payForCommitment()
-        self.rounds()
+        historyAndPayoffs = self.rounds()
+        return (historyAndPayoffs, commitments)
 
     def sendMatchupInfo(self):
         return [self.bot1.id, self.bot2.id, self.bot1.commitType, self.bot2.commitType, self.gameHistory]

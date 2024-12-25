@@ -40,7 +40,7 @@ from strategies.AlwaysDefect import AlwaysDefect
 db_connection = mysql.connector.connect(
   host="localhost",
   user="root",
-  passwd="1234", 
+  passwd="zagorktg07", 
   auth_plugin='mysql_native_password'
 )
 
@@ -138,8 +138,11 @@ playerTypes11 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0]
                 [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0]]
 playerWeights11 = [0.25,0.25,0.25,0.25]
 
-
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #For unilateral games everyone should play each other twice with different commit
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 def stringToDict(payoffStr):
     payoffDict = {"CC": int(payoffStr[2]), "DC": int(payoffStr[5]), "CD": int(payoffStr[8]), "DD": int(payoffStr[11])}
@@ -155,12 +158,6 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
     if tourCount == None:
         tourCount = 0
 
-    # not used right now, will be used in nested for loops
-    #insert_players = (
-    #    "INSERT INTO PLAYERS "
-    #    "(player_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, coop_comm_prob, assume_comm_prob, pay_prob, win_count, draw_count, loss_count, tour_id) "
-    #    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    #)
     tournamentID = machine_identifier + str(tourCount)
     sql1 = """INSERT INTO tournaments (tournament_id, game_type, game_length, payoffs, punishment, reward) VALUES (%s, %s, %s, %s, %s, %s)"""
     val1 = (tournamentID, gameType, gameLength, payoffs, punishment, reward)
@@ -168,8 +165,6 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
     db_connection.commit()
 
-    
-    #tournament(0,7,4,playerTypes0, playerWeights0, "CC3DC5CD0DD1", -1, 1)
     bot1PayoffMatrix = stringToDict(payoffs)
     bot2PayoffMatrix = stringToDict(payoffs)
     if gameType == 0:
@@ -184,7 +179,8 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 commitType=playerTypes[i][7], 
                 opponentCoopCommitType=playerTypes[i][8])
                 bots.append(bot)
-         
+
+                #budget
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
                 coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
@@ -199,7 +195,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralClosedDeterministicGame(
+                    matchupInfo = BilateralClosedDeterministicGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix, 
@@ -207,6 +203,15 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     game_length=gameLength, 
                     commitment=+1, 
                     punishment=punishment).gametime()
+
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -239,7 +244,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralClosedMixedGame(
+                    matchupInfo = BilateralClosedMixedGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix, 
@@ -248,6 +253,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)
+                    db_connection.commit()
+
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -281,7 +296,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralOCostDeterministicGame(
+                    matchupInfo = BilateralOCostDeterministicGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix, 
@@ -291,6 +306,15 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     punishment=punishment, 
                     observation_cost=3  # Add observation cost parameter
                     ).gametime()
+
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -322,7 +346,14 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralOCostMixedGame(bots[i], bots[n], bot1PayoffMatrix, bot2PayoffMatrix, gameLength, reward, punishment, 3).gametime()
+                    matchupInfo = BilateralOCostMixedGame(bots[i], bots[n], bot1PayoffMatrix, bot2PayoffMatrix, gameLength, reward, punishment, 3).gametime()
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)
+                    db_connection.commit()
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -353,7 +384,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralOpenDeterministicGame(
+                    matchupInfo = BilateralOpenDeterministicGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix, 
@@ -362,6 +393,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)
+                    db_connection.commit()
+
+                    #SEED part is here !!!!!!!!
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -393,7 +434,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    BilateralOpenMixedGame(
+                    matchupInfo = BilateralOpenMixedGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix, 
@@ -401,6 +442,15 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     game_length=gameLength, 
                     commitment=reward, 
                     punishment=punishment).gametime()
+
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -683,7 +733,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 #tournament(2,7,4,playerTypes2, playerWeights2, "CC3DC5CD0DD1", -1, 0)
 #tournament(3,7,4,playerTypes3, playerWeights3, "CC3DC5CD0DD1", -1, 0)
 #tournament(4,7,4,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0)
-#tournament(5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0)
+tournament(5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0)
 #tournament(6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0)
 #tournament(7,7,4,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0)
 #tournament(8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0)

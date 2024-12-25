@@ -64,6 +64,8 @@ class UnilateralOCostMixedGame():
                   str(self.bot2.budget))
             
         print(self.bot1.history)
+        
+        self.gameHistory = self.bot1.history
         self.bot1.history = []
         self.bot2.history = []
 
