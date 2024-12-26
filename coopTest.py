@@ -1,3 +1,6 @@
+from bots import *
+
+
 def calculate_cooperativeness(bot):
     """
     Calculates the cooperativeness of a bot based on its history.
