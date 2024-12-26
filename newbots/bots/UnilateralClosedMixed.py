@@ -20,6 +20,9 @@ class UnilateralClosedMixed():
 
     def getID(self):
         return self.id
+    
+    def getBudget(self):
+        return self.budget
 
     def makeUnilateralCommitment(self):
         self.seed = datetime.now().timestamp()

@@ -23,6 +23,9 @@ class BilateralClosedDeterministic():
     
     def getID(self):
         return self.id
+    
+    def getBudget(self):
+        return self.budget
 
     def setCommitType(self, type):
         self.commitType = type #true for coop, false for defect

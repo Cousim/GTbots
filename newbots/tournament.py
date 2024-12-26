@@ -183,10 +183,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 #budget
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) #pay_prob None cunku closed game
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) #pay_prob None cunku closed game
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -208,8 +208,19 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
-                
                     db_cursor.execute(sql3, val3)
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+
                     db_connection.commit()
 
                     bot1PayoffMatrix = stringToDict(payoffs)
@@ -232,10 +243,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -260,6 +271,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
                     db_connection.commit()
 
 
@@ -283,10 +304,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0)
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget())
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -310,9 +331,20 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     sql3 = """INSERT INTO matchups 
                     (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
-                
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)               
                     db_cursor.execute(sql3, val3)
+                    
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    
                     db_connection.commit()
 
                     bot1PayoffMatrix = stringToDict(payoffs)
@@ -334,10 +366,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0) # 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget()) # 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -353,6 +385,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
                     db_connection.commit()
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
@@ -372,10 +414,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -399,6 +441,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
                     db_connection.commit()
 
                     #SEED part is here !!!!!!!!
@@ -422,10 +474,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -449,6 +501,16 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
                     db_connection.commit()
 
                     bot1PayoffMatrix = stringToDict(payoffs)
@@ -474,10 +536,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) # pay_prob None cunku closed game
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) # pay_prob None cunku closed game
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -495,6 +557,19 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -518,10 +593,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -539,6 +614,19 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -563,10 +651,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0)
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget())
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -585,6 +673,19 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     punishment=punishment, 
                     observation_cost=3  # Example value for observation_cost
                     ).gametime()
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -609,10 +710,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0) #3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget()) #3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -630,6 +731,19 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment, 
                     observation_cost=3).gametime()
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -652,10 +766,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -672,6 +786,18 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     game_length=gameLength, 
                     commitment=reward, 
                     punishment=punishment).gametime()  # Example values for commitment and punishment
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    db_connection.commit()
 
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
@@ -695,10 +821,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                 sql2 = """INSERT INTO players 
                 (player_id, tournament_id, most_coop_strat, less_coop_strat, less_def_strat, most_def_strat, 
-                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                coop_commit_prob, assume_commit_prob, pay_prob, win_count, draw_count, loss_count, budget)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], None, None, 0, 0, 0) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(sql2, val2)
 
                 db_connection.commit()
@@ -716,6 +842,19 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment,
                     ).gametime()
+
+                    update1 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    db_cursor.execute(update1, (bots[i].getBudget(), bots[i].getID()))
+
+                    update2 = """UPDATE players 
+                                    SET budget = %s 
+                                    WHERE player_id = %s"""
+                    
+                    db_cursor.execute(update2, (bots[n].getBudget(), bots[n].getID()))
+                    db_connection.commit()
+
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
@@ -733,10 +872,10 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 #tournament(2,7,4,playerTypes2, playerWeights2, "CC3DC5CD0DD1", -1, 0)
 #tournament(3,7,4,playerTypes3, playerWeights3, "CC3DC5CD0DD1", -1, 0)
 #tournament(4,7,4,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0)
-tournament(5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0)
-#tournament(6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0)
-#tournament(7,7,4,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0)
-#tournament(8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0)
-#tournament(9,7,4,playerTypes9, playerWeights9, "CC3DC5CD0DD1", -1, 0)
-#tournament(10,7,4,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0)
-#tournament(11,7,4,playerTypes11, playerWeights11, "CC3DC5CD0DD1", -1, 0)
+#tournament(5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0)
+tournament(6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0)
+tournament(7,7,4,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0)
+tournament(8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0)
+tournament(9,7,4,playerTypes9, playerWeights9, "CC3DC5CD0DD1", -1, 0)
+tournament(10,7,4,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0)
+tournament(11,7,4,playerTypes11, playerWeights11, "CC3DC5CD0DD1", -1, 0)

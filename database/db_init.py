@@ -12,24 +12,27 @@ db_connection = mysql.connector.connect(
   passwd="1234", 
   auth_plugin='mysql_native_password'
 )
-#print(db_connection)
+print(db_connection)
 
 # creating database_cursor to perform SQL operation to run queries
 db_cursor = db_connection.cursor(buffered=True)
 
 # executing cursor with execute method and pass SQL query
-# db_cursor.execute("CREATE DATABASE gametheory")
+db_cursor.execute("CREATE DATABASE gametheory")
 
 # get list of all databases
-# db_cursor.execute("SHOW DATABASES")
+db_cursor.execute("SHOW DATABASES")
 
 # print all databases
-#for db in db_cursor:
-#    print(db)
+for db in db_cursor:
+    print(db)
 
 db_cursor.execute("USE gametheory")
 
  # Each table is returned as a tuple
+
+db_cursor.execute("SHOW TABLES")
+
 
 #may change size of payoffs
 db_cursor.execute("""
@@ -65,6 +68,7 @@ CREATE TABLE PLAYERS (
     win_count INT,
     draw_count INT,
     loss_count INT,
+    budget INT,
     PRIMARY KEY (player_id, tournament_id),
     FOREIGN KEY (tournament_id) REFERENCES TOURNAMENTS(tournament_id)
 )
@@ -87,6 +91,8 @@ CREATE TABLE MATCHUPS (
     player2_commitment FLOAT,
     player1_score INT,
     player2_score INT,
+    player1_observed TINYINT,
+    player2_observed TINYINT,
     player1_seed_list VARCHAR(255),
     player2_seed_list VARCHAR(255),
     PRIMARY KEY (tournament_id, player1_id, player2_id),

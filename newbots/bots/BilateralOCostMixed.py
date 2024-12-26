@@ -21,6 +21,9 @@ class BilateralOCostMixed():
     def getID(self):
         return self.id
 
+    def getBudget(self):
+        return self.budget
+
     def makeMixedCommitment(self):
         self.seed = datetime.now().timestamp()
         return self.coopCommitProb, self.seed
