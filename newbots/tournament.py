@@ -655,28 +655,28 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1] / 100), None, matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                     db_cursor.execute(queries.insertMatchup, val3)
 
-                    for bot_idx in (i, n):
-                        db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
-                        oldWins = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
-                        oldDraws = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
-                        oldLosses = db_cursor.fetchone()[0]
-                        db_cursor.fetchall
-
-                        if bot_idx == i:
-                            newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                        else:
-                            newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                        newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
-
-                        db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                    #for bot_idx in (i, n):
+                    #    db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
+                    #    oldWins = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
+                    #    oldDraws = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
+                    #    oldLosses = db_cursor.fetchone()[0]
+                    #    db_cursor.fetchall
+#
+                    #    if bot_idx == i:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #    else:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #    newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+#
+                    #    db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -722,28 +722,28 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     observation_cost=3  # Example value for observation_cost
                     ).gametime()
 
-                    for bot_idx in (i, n):
-                        db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
-                        oldWins = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
-                        oldDraws = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
-                        oldLosses = db_cursor.fetchone()[0]
-                        db_cursor.fetchall
-
-                        if bot_idx == i:
-                            newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                        else:
-                            newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                        newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
-
-                        db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                    #for bot_idx in (i, n):
+                    #    db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
+                    #    oldWins = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
+                    #    oldDraws = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
+                    #    oldLosses = db_cursor.fetchone()[0]
+                    #    db_cursor.fetchall
+#
+                    #    if bot_idx == i:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #    else:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #    newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+#
+                    #    db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -788,28 +788,28 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     punishment=punishment, 
                     observation_cost=3).gametime()
 
-                    for bot_idx in (i, n):
-                        db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
-                        oldWins = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
-                        oldDraws = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
-                        oldLosses = db_cursor.fetchone()[0]
-                        db_cursor.fetchall
-
-                        if bot_idx == i:
-                            newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                        else:
-                            newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                        newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
-
-                        db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                    #for bot_idx in (i, n):
+                    #    db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
+                    #    oldWins = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
+                    #    oldDraws = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
+                    #    oldLosses = db_cursor.fetchone()[0]
+                    #    db_cursor.fetchall
+#
+                    #    if bot_idx == i:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #    else:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #    newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+#
+                    #    db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -851,28 +851,28 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment).gametime()  # Example values for commitment and punishment
                     
-                    for bot_idx in (i, n):
-                        db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
-                        oldWins = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
-                        oldDraws = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
-                        oldLosses = db_cursor.fetchone()[0]
-                        db_cursor.fetchall
-
-                        if bot_idx == i:
-                            newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                        else:
-                            newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                        newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
-
-                        db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                    #for bot_idx in (i, n):
+                    #    db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
+                    #    oldWins = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
+                    #    oldDraws = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
+                    #    oldLosses = db_cursor.fetchone()[0]
+                    #    db_cursor.fetchall
+#
+                    #    if bot_idx == i:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #    else:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #    newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+#
+                    #    db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
 
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -915,28 +915,28 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     punishment=punishment,
                     ).gametime()
 
-                    for bot_idx in (i, n):
-                        db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
-                        oldWins = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
-                        oldDraws = db_cursor.fetchone()[0]
-
-                        db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
-                        oldLosses = db_cursor.fetchone()[0]
-                        db_cursor.fetchall
-
-                        if bot_idx == i:
-                            newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                        else:
-                            newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                            newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                        newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
-
-                        db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                    #for bot_idx in (i, n):
+                    #    db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
+                    #    oldWins = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
+                    #    oldDraws = db_cursor.fetchone()[0]
+#
+                    #    db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
+                    #    oldLosses = db_cursor.fetchone()[0]
+                    #    db_cursor.fetchall
+#
+                    #    if bot_idx == i:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #    else:
+                    #        newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                    #        newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                    #    newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+#
+                    #    db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
+                    #    db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
