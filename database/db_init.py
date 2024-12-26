@@ -18,7 +18,7 @@ print(db_connection)
 db_cursor = db_connection.cursor(buffered=True)
 
 # executing cursor with execute method and pass SQL query
-db_cursor.execute("CREATE DATABASE gametheory")
+#db_cursor.execute("CREATE DATABASE gametheory")
 
 # get list of all databases
 db_cursor.execute("SHOW DATABASES")

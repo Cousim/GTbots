@@ -267,8 +267,8 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                     sql3 = """INSERT INTO matchups 
                     (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""                              # divide w/ 100 to show prob in range [0,1]
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1][0] / 100), (matchupInfo[1][1] / 100), matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
                     update1 = """UPDATE players 
@@ -381,8 +381,8 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     matchupInfo = BilateralOCostMixedGame(bots[i], bots[n], bot1PayoffMatrix, bot2PayoffMatrix, gameLength, reward, punishment, 3).gametime()
                     sql3 = """INSERT INTO matchups 
                     (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""                             # divide w/ 100 to show prob in range [0,1]
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1][0] / 100), (matchupInfo[1][1] / 100), matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
                     update1 = """UPDATE players 
@@ -497,8 +497,8 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 
                     sql3 = """INSERT INTO matchups 
                     (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""                            # divide w/ 100 to show prob in range [0,1]
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1][0] / 100), (matchupInfo[1][1] / 100), matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
                 
                     db_cursor.execute(sql3, val3)
                     update1 = """UPDATE players 
@@ -548,7 +548,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    UnilateralClosedDeterministicGame(
+                    matchupInfo = UnilateralClosedDeterministicGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
@@ -557,6 +557,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1], None, matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)                    
 
                     update1 = """UPDATE players 
                                     SET budget = %s 
@@ -605,7 +612,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
             for n in range(playerCount):
                 if i < n:
                     print("Game",count,"****************************************************************************************")
-                    UnilateralClosedMixedGame(
+                    matchupInfo = UnilateralClosedMixedGame(
                     bots[i], 
                     bots[n], 
                     bot1PayoffMatrix=bot1PayoffMatrix, 
@@ -614,6 +621,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment
                     ).gametime()
+
+                    sql3 = """INSERT INTO matchups 
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""                  # divide w/ 100 to show prob in range [0,1]
+                    val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1] / 100), None, matchupInfo[0][1][0], matchupInfo[0][1][1], None, None)
+                
+                    db_cursor.execute(sql3, val3)    
 
                     update1 = """UPDATE players 
                                     SET budget = %s 
@@ -873,9 +887,9 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
 #tournament(3,7,4,playerTypes3, playerWeights3, "CC3DC5CD0DD1", -1, 0)
 #tournament(4,7,4,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0)
 #tournament(5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0)
-tournament(6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0)
+#tournament(6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0)
 tournament(7,7,4,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0)
-tournament(8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0)
-tournament(9,7,4,playerTypes9, playerWeights9, "CC3DC5CD0DD1", -1, 0)
-tournament(10,7,4,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0)
-tournament(11,7,4,playerTypes11, playerWeights11, "CC3DC5CD0DD1", -1, 0)
+#tournament(8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0)
+#tournament(9,7,4,playerTypes9, playerWeights9, "CC3DC5CD0DD1", -1, 0)
+#tournament(10,7,4,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0)
+#tournament(11,7,4,playerTypes11, playerWeights11, "CC3DC5CD0DD1", -1, 0)
