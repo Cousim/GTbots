@@ -99,8 +99,15 @@ class BilateralOpenMixedGame():
         commitments = self.takeBilateralCommitment()
         self.setOpponentCommitment()
         historyAndPayoffs = self.rounds()
+        seedLists = [self.seedListToStr(self.bot1CommitMoves), self.seedListToStr(self.bot2CommitMoves)]
 
-        return (historyAndPayoffs, commitments)
+        return (historyAndPayoffs, commitments, seedLists)
         
     def sendMixedMatchupInfo(self):
         return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]
+    
+    def seedListToStr(self, seedList): 
+        str = ""
+        for s in seedList:
+            str += s
+        return str

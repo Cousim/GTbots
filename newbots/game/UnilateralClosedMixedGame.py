@@ -97,8 +97,15 @@ class UnilateralClosedMixedGame():
         commitment = self.takeUnilateralCommitment()
         self.assumeOpponentCommitment()
         historyAndPayoffs = self.rounds()
+        seedList = self.seedListToStr(self.bot1CommitMoves)
 
-        return (historyAndPayoffs, commitment)
+        return (historyAndPayoffs, commitment, seedList)
 
     def sendMixedMatchupInfo(self):
         return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, None, self.gameHistory] #None since second bot doesn't commit anymore. 
+
+    def seedListToStr(self, seedList): 
+        str = ""
+        for s in seedList:
+            str += s
+        return str

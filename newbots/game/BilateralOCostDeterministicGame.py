@@ -54,6 +54,8 @@ class BilateralOCostDeterministicGame():
         else : 
             self.bot2.assumeOpponentCommit()
 
+        return [bot1pays, bot2pays]
+
     def rounds(self):
         scores = [0, 0]
         for i in range(self.game_length):
@@ -70,7 +72,7 @@ class BilateralOCostDeterministicGame():
             scores[0] += payoffs[0]
             scores[1] += payoffs[1]
 
-            self.checkCommitmentAndPayoff(i)
+            
             roundStr = str(i)
             print("This round moves: "+self.bot1.history[i]+self.bot1.history[i+1])
             print("Round "+roundStr+" Bot 1 Budget: "+
@@ -102,9 +104,9 @@ class BilateralOCostDeterministicGame():
 
     def gametime(self):
         commitments = self.takeBilateralCommitment()
-        self.payForCommitment()
+        observeds = self.payForCommitment()
         historyAndPayoffs = self.rounds()
-        return (historyAndPayoffs, commitments)
+        return (historyAndPayoffs, commitments, observeds)
 
     def sendMatchupInfo(self):
         return [self.bot1.id, self.bot2.id, self.bot1.commitType, self.bot2.commitType, self.gameHistory]

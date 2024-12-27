@@ -52,6 +52,8 @@ class BilateralOCostMixedGame():
         else : 
             self.bot2.assumeOpponentCommit()
 
+        return [bot1pays, bot2pays]
+
 
     def rounds(self):
         scores = [0, 0]
@@ -113,10 +115,18 @@ class BilateralOCostMixedGame():
 
     def gametime(self):
         commitments = self.takeBilateralCommitment()
-        self.payForCommitment()
+        observeds = self.payForCommitment()
         historyAndPayoffs = self.rounds()
+        seedlists = [self.seedListToStr(self.bot1CommitMoves), self.seedListToStr(self.bot2CommitMoves)]
 
-        return (historyAndPayoffs, commitments)
+
+        return (historyAndPayoffs, commitments, observeds, seedlists)
 
     def sendMixedMatchupInfo(self):
         return [self.bot1.id, self.bot2.id, self.bot1CommitMoves, self.bot2CommitMoves, self.gameHistory]
+    
+    def seedListToStr(self, seedList): 
+        str = ""
+        for s in seedList:
+            str += s
+        return str

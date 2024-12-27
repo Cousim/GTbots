@@ -6,8 +6,8 @@ insertPlayer = """INSERT INTO players
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
 insertMatchup = """INSERT INTO matchups 
-                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_observed, player2_observed, player1_seed_list, player2_seed_list)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
 updateBudget = """UPDATE players 
                                     SET budget = %s 
