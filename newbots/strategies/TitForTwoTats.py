@@ -1,6 +1,6 @@
 class TitForTwoTats():
     def play(self, botHistory, botBudget, roundNum):
-        print("titfortwotats")
+        #print("titfortwotats")
         if botHistory == [] or len(botHistory) < 4:
             return True
         else:
@@ -11,4 +11,4 @@ class TitForTwoTats():
         return "titfortwotats"
     
     def stratInt(self):
-        return 7
+        return 2

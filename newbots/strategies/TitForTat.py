@@ -1,7 +1,7 @@
 class TitForTat():
 
     def play(self, botHistory, botBudget, roundNum) :
-        print("Titfortat")
+        #print("Titfortat")
         if botHistory == []:
             return True #True for cooperation
         else:
@@ -14,4 +14,4 @@ class TitForTat():
         return "titfortat"
     
     def stratInt(self):
-        return 6
+        return 4

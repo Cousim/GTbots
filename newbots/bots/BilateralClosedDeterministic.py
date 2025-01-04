@@ -20,6 +20,7 @@ class BilateralClosedDeterministic():
         self.opponentCoopCommitType = opponentCoopCommitType
         BilateralClosedDeterministic.bot_number += 1
         self.id = BilateralClosedDeterministic.bot_number
+        self.coopCount = 0
     
     def getID(self):
         return self.id
@@ -45,7 +46,7 @@ class BilateralClosedDeterministic():
             return self.commitType #return defection commitment if false
 
     def inTurn(self, roundNum):
-        print(self.history)
+        #print(self.history)
         if (self.commitType & self.opponentCoopCommitType) : return self.mostCoopStrat.play(self.history, self.budget, roundNum) # both coop commit
         elif (self.commitType &  (not self.opponentCoopCommitType)) : return self.lessCoopStrat.play(self.history, self.budget, roundNum) # self coop commit
         elif ((not self.commitType)  & self.opponentCoopCommitType) : return self.lessDefectStrat.play(self.history, self.budget, roundNum) # self defect commit

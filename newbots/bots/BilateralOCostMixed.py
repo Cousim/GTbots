@@ -17,6 +17,7 @@ class BilateralOCostMixed():
         self.seed = seed
         BilateralOCostMixed.bot_number += 1
         self.id = BilateralOCostMixed.bot_number
+        self.coopCount = 0
 
     def getID(self):
         return self.id

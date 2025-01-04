@@ -42,7 +42,7 @@ from database import queries
 db_connection = mysql.connector.connect(
   host="localhost",
   user="root",
-  passwd="1234", 
+  passwd="zagorktg07", 
   auth_plugin='mysql_native_password'
 )
 
@@ -150,7 +150,7 @@ def stringToDict(payoffStr):
     payoffDict = {"CC": int(payoffStr[2]), "DC": int(payoffStr[5]), "CD": int(payoffStr[8]), "DD": int(payoffStr[11])}
     return payoffDict
 
-def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, payoffs, punishment, reward):
+def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeights, payoffs, punishment, reward, observationCost):
     db_cursor.execute("""SELECT COUNT(*) FROM TOURNAMENTS""")
     tourCount = db_cursor.fetchone()[0]
     db_cursor.fetchall()
@@ -158,8 +158,8 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
     if tourCount == None:
         tourCount = 0
 
-    tournamentID = machine_identifier + str(tourCount)
-    db_cursor.execute(queries.insertTournament, (tournamentID, gameType, gameLength, payoffs, punishment, reward))
+    tournamentID = HID + str(tourCount)
+    db_cursor.execute(queries.insertTournament, (tournamentID, gameType, gameLength, payoffs, punishment, reward, observationCost))
 
     bots = []
 
@@ -179,13 +179,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) #pay_prob None cunku closed game
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget(), bot.coopCount) #pay_prob None cunku closed game
                 db_cursor.execute(queries.insertPlayer, val2)
           
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = BilateralClosedDeterministicGame(
                     bots[i], 
                     bots[n], 
@@ -217,9 +217,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
  
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -243,13 +246,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget(), bot.coopCount) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = BilateralClosedMixedGame(
                     bots[i], 
                     bots[n], 
@@ -285,9 +288,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
 
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -312,13 +318,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget())
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget(), bot.coopCount)
                 db_cursor.execute(queries.insertPlayer, val2)                
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = BilateralOCostDeterministicGame(
                     bots[i], 
                     bots[n], 
@@ -327,7 +333,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     game_length=gameLength, 
                     commitment=reward, 
                     punishment=punishment, 
-                    observation_cost=3  # Add observation cost parameter
+                    observation_cost=observationCost  # Add observation cost parameter
                     ).gametime()
 
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], matchupInfo[1][0], matchupInfo[1][1], 
@@ -353,9 +359,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
+                        
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -378,13 +388,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget()) # 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget(), bot.coopCount) # 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = BilateralOCostMixedGame(bots[i], bots[n], bot1PayoffMatrix, bot2PayoffMatrix, gameLength, reward, punishment, 3).gametime()
 
                     # divide w/ 100 to show prob in range [0,1]
@@ -411,9 +421,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -435,13 +448,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget(), bot.coopCount) # assume_commit_prob, pay_prob None cunku open game
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = BilateralOpenDeterministicGame(
                     bots[i], 
                     bots[n], 
@@ -475,9 +488,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -502,13 +518,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget(), bot.coopCount) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = BilateralOpenMixedGame(
                     bots[i], 
                     bots[n], 
@@ -542,9 +558,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -571,13 +590,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) # pay_prob None cunku closed game
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget(), bot.coopCount) # pay_prob None cunku closed game
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralClosedDeterministicGame(
                     bots[i], 
                     bots[n], 
@@ -611,9 +630,12 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
 
+                        newCoopCount = bots[bot_idx].coopCount
+
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))                
+                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))                
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -640,13 +662,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget()) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], None, 0, 0, 0, bot.getBudget(), bot.coopCount) # pay_prob None cunku closed game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralClosedMixedGame(
                     bots[i], 
                     bots[n], 
@@ -662,28 +684,31 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             matchupInfo[0][1][0], matchupInfo[0][1][1], None, None, matchupInfo[2], None)
                     db_cursor.execute(queries.insertMatchup, val3)
 
-                    #for bot_idx in (i, n):
-                    #    db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
-                    #    oldWins = db_cursor.fetchone()[0]
-#
-                    #    db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
-                    #    oldDraws = db_cursor.fetchone()[0]
-#
-                    #    db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
-                    #    oldLosses = db_cursor.fetchone()[0]
-                    #    db_cursor.fetchall
-#
-                    #    if bot_idx == i:
-                    #        newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                    #        newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                    #    else:
-                    #        newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
-                    #        newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
-                    #    newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
-#
-                    #    db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
-                    #    db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
-                    #    db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                    for bot_idx in (i, n):
+                        db_cursor.execute(queries.getWins, (bots[bot_idx].getID(), tournamentID))
+                        oldWins = db_cursor.fetchone()[0]
+
+                        db_cursor.execute(queries.getDraws, (bots[bot_idx].getID(), tournamentID))
+                        oldDraws = db_cursor.fetchone()[0]
+
+                        db_cursor.execute(queries.getLosses, (bots[bot_idx].getID(), tournamentID))
+                        oldLosses = db_cursor.fetchone()[0]
+                        db_cursor.fetchall
+
+                        if bot_idx == i:
+                            newWins = oldWins + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                            newLosses = oldLosses + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                        else:
+                            newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
+                            newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
+                        newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+
+                        newCoopCount = bots[bot_idx].coopCount
+
+                        db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -711,13 +736,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget())
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget(), bot.coopCount)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOCostDeterministicGame(
                     bots[i], 
                     bots[n], 
@@ -726,7 +751,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     game_length=gameLength, 
                     commitment=reward, 
                     punishment=punishment, 
-                    observation_cost=3  # Example value for observation_cost
+                    observation_cost=observationCost  # Example value for observation_cost
                     ).gametime()
 
                                         # since deterministic, no division
@@ -752,10 +777,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+
+                        newCoopCount = bots[bot_idx].coopCount
 #
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -783,13 +811,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
                 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget()) #3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], playerTypes[i][6], playerTypes[i][7], 0, 0, 0, bot.getBudget(), bot.coopCount) #3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOCostMixedGame(
                     bot1=bots[i], 
                     bot2=bots[n], 
@@ -798,7 +826,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     game_length=gameLength, 
                     commitment=reward, 
                     punishment=punishment, 
-                    observation_cost=3).gametime()
+                    observation_cost=observationCost).gametime()
 
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1] / 100), None, 
                             matchupInfo[0][1][0], matchupInfo[0][1][1], None, matchupInfo[2], matchupInfo[3], None)
@@ -822,10 +850,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+
+                        newCoopCount = bots[bot_idx].coopCount
 #
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -837,7 +868,7 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
     elif gameType == 10:
         count = 0
         for i in range(len(playerTypes)):
-            for n in range((math.floor(playerCount*playerWeights[i]))):      
+            for n in range((math.floor(playerCount*playerWeights[i]))):
                 bot = UnilateralOpenDeterministic(
                 mostCoopStrat=playerTypes[i][0], 
                 lessCoopStrat=playerTypes[i][1], 
@@ -851,13 +882,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), playerTypes[i][1].stratInt(), playerTypes[i][2].stratInt(), playerTypes[i][3].stratInt(), 
-                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget(), bot.coopCount) # assume_commit_prob, pay_prob None cunku open game
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOpenDeterministicGame(
                     bot1=bots[i], 
                     bot2=bots[n], 
@@ -889,10 +920,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+
+                        newCoopCount = bots[bot_idx].coopCount
 #
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
 
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -918,13 +952,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                 bots.append(bot)
 
                 val2 = (bot.getID(), tournamentID, playerTypes[i][0].stratInt(), None, None, None, 
-                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget()) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
+                        playerTypes[i][5], None, None, 0, 0, 0, bot.getBudget(), bot.coopCount) # assume_commit_prob, pay_prob None cunku open game, 3 strateji None cunku mixed botlar tek strateji uyguluyor (su anki haliyle)
                 db_cursor.execute(queries.insertPlayer, val2)
 
         for i in range(playerCount):
             for n in range(playerCount):
                 if i < n:
-                    print("Game",count,"****************************************************************************************")
+                    #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOpenMixedGame(
                     bot1=bots[i], 
                     bot2=bots[n], 
@@ -934,11 +968,6 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                     commitment=reward, 
                     punishment=punishment,
                     ).gametime()
-
-                    insertMatchup = """INSERT INTO matchups 
-                    (tournament_id, player1_id, player2_id, history, player1_commitment, player2_commitment, player1_score, player2_score, player1_seed_list, player2_seed_list)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-                    
                                                                                             #divide w/ 100 to show prob in [0, 1]
                     val3 = (tournamentID, bots[i].getID(), bots[n].getID(), matchupInfo[0][0], (matchupInfo[1] / 100), None, 
                             matchupInfo[0][1][0], matchupInfo[0][1][1], None, None, matchupInfo[2], None)
@@ -962,10 +991,13 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
                             newWins = oldWins + (matchupInfo[0][1][0] < matchupInfo[0][1][1])
                             newLosses = oldLosses + (matchupInfo[0][1][0] > matchupInfo[0][1][1])
                         newDraws = oldDraws + (matchupInfo[0][1][0] == matchupInfo[0][1][1])
+
+                        newCoopCount = bots[bot_idx].coopCount
 #
                         db_cursor.execute(queries.updateWins, (newWins, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateLosses, (newLosses, bots[bot_idx].getID(), tournamentID))
                         db_cursor.execute(queries.updateDraws, (newDraws, bots[bot_idx].getID(), tournamentID))
+                        db_cursor.execute(queries.updateCoopCount, (newCoopCount, bots[bot_idx].getID(), tournamentID))
                     
                     db_cursor.execute(queries.updateBudget, (bots[i].getBudget(), bots[i].getID(), tournamentID))
                     db_cursor.execute(queries.updateBudget, (bots[n].getBudget(), bots[n].getID(), tournamentID))
@@ -977,23 +1009,15 @@ def tournament(gameType, gameLength, playerCount, playerTypes, playerWeights, pa
     db_connection.commit()
 
 
-
-# not used right now, will be used in nested for loops
-#insert_tournaments = (
-#    "INSERT INTO TOURNAMENTS "
-#    "(tournament_id, game_type, game_length, payoffs, punishment, reward) "
-#    "VALUES (%s, %s, %s, %s, %s, %s)"
-#)
-
-#tournament(0,7,4,playerTypes0, playerWeights0, "CC3DC6CD0DD1", -1, 0)
-#tournament(1,7,4,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0)
-#tournament(2,7,4,playerTypes2, playerWeights2, "CC3DC5CD0DD1", -1, 0)
-#tournament(3,7,4,playerTypes3, playerWeights3, "CC3DC5CD0DD1", -1, 0)
-#tournament(4,7,4,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0)
-#tournament(5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0)
-#tournament(6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0)
-#tournament(7,7,4,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0)
-#tournament(8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0)
-#tournament(9,7,4,playerTypes9, playerWeights9, "CC3DC5CD0DD1", -1, 0)
-#tournament(10,7,4,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0)
-#tournament(11,7,4,playerTypes11, playerWeights11, "CC3DC5CD0DD1", -1, 0)
+#tournament("Trial",0,7,4,playerTypes0, playerWeights0, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",1,7,4,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",2,7,4,playerTypes2, playerWeights2, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",3,7,4,playerTypes3, playerWeights3, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",4,7,4,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",5,7,4,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",6,7,4,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",7,7,4,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",8,7,4,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",9,7,4,playerTypes9, playerWeights9, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",10,7,4,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0, 3)
+#tournament("Trial",11,7,4,playerTypes11, playerWeights11, "CC3DC5CD0DD1", -1, 0, 3)

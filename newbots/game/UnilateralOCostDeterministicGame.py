@@ -56,19 +56,20 @@ class UnilateralOCostDeterministicGame():
             self.bot2.history.append(("C" if bot2Move else "D"))
             self.bot2.history.append(("C" if bot1Move else "D"))
 
+            if (bot1Move) : self.bot1.coopCount += 1
+            if (bot2Move) : self.bot2.coopCount += 1
+
 
             payoffs = self.checkCommitmentAndPayoff(i)
             scores[0] += payoffs[0]
             scores[1] += payoffs[1]
 
             roundStr = str(i)
-            print("This round moves: "+self.bot1.history[2*i]+self.bot1.history[2*i+1])
-            print("Round "+roundStr+" Bot 1 Budget: "+
-                  str(self.bot1.budget))
-            print("Round "+roundStr+" Bot 2 Budget: "+
-                  str(self.bot2.budget))
+            #print("This round moves: "+self.bot1.history[2*i]+self.bot1.history[2*i+1])
+            #print("Round "+roundStr+" Bot 1 Budget: "+str(self.bot1.budget))
+            #print("Round "+roundStr+" Bot 2 Budget: "+str(self.bot2.budget))
             
-        print(self.bot1.history)
+        #print(self.bot1.history)
 
         self.gameHistory = self.bot1.history
         self.bot1.history = []

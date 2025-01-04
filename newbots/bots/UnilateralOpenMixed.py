@@ -16,6 +16,7 @@ class UnilateralOpenMixed():
         self.seed = seed
         UnilateralOpenMixed.bot_number += 1
         self.id = UnilateralOpenMixed.bot_number
+        self.coopCount = 0
 
     def getID(self):
         return self.id

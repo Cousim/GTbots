@@ -17,6 +17,7 @@ class UnilateralOCostMixed():
         self.makeCommitment = False
         UnilateralOCostMixed.bot_number += 1
         self.id = UnilateralOCostMixed.bot_number
+        self.coopCount = 0
 
     def getID(self):
         return self.id

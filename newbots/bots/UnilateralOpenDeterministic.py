@@ -18,6 +18,7 @@ class UnilateralOpenDeterministic():
         self.opponentCoopCommitType = opponentCoopCommitType
         UnilateralOpenDeterministic.bot_number += 1
         self.id = UnilateralOpenDeterministic.bot_number
+        self.coopCount = 0
 
     def getID(self):
         return self.id

@@ -9,7 +9,7 @@ class GenerousTitForTat():
         return self.revenge
     
     def play(self, botHistory, botBudget, roundNum):
-        print("Generous tit for tat")
+        #print("Generous tit for tat")
         if botHistory == []:
             self.setRevenge(False)
 
@@ -29,4 +29,4 @@ class GenerousTitForTat():
         return "generoustitfortat"
     
     def stratInt(self):
-        return 2
+        return 3

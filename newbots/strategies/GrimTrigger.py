@@ -1,7 +1,7 @@
 class GrimTrigger():
      
      def play(self, botHistory, botBudget, roundNum):
-          print("Grim Trigger")
+          #print("Grim Trigger")
           if ('D' in botHistory) :
                return False
           else :
@@ -12,4 +12,4 @@ class GrimTrigger():
         return "grimtrigger"
 
      def stratInt(self):
-        return 3
+        return 5

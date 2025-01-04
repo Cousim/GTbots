@@ -1,7 +1,7 @@
 class AlwaysCooperate(): 
 
     def play(self, botHistory, botBudget, roundNum) :
-        print("Always Cooperate")
+        #print("Always Cooperate")
         return True
     
     def name(self): 

@@ -9,7 +9,7 @@ import csv
 db_connection = mysql.connector.connect(
   host="localhost",
   user="root",
-  passwd="1234", 
+  passwd="zagorktg07", 
   auth_plugin='mysql_native_password'
 )
 print(db_connection)
@@ -18,7 +18,7 @@ print(db_connection)
 db_cursor = db_connection.cursor(buffered=True)
 
 # executing cursor with execute method and pass SQL query
-#db_cursor.execute("CREATE DATABASE gametheory")
+db_cursor.execute("CREATE DATABASE gametheory")
 
 # get list of all databases
 db_cursor.execute("SHOW DATABASES")
@@ -43,6 +43,7 @@ CREATE TABLE TOURNAMENTS (
     payoffs VARCHAR(255),
     punishment INT,
     reward INT,
+    observation_cost INT,
     PRIMARY KEY (tournament_id)
 )
 """)
@@ -69,6 +70,7 @@ CREATE TABLE PLAYERS (
     draw_count INT,
     loss_count INT,
     budget INT,
+    coop_count INT,
     PRIMARY KEY (player_id, tournament_id),
     FOREIGN KEY (tournament_id) REFERENCES TOURNAMENTS(tournament_id)
 )

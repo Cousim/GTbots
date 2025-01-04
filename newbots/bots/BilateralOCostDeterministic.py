@@ -18,6 +18,7 @@ class BilateralOCostDeterministic():
         self.opponentCoopCommitType = opponentCoopCommitType
         BilateralOCostDeterministic.bot_number += 1
         self.id = BilateralOCostDeterministic.bot_number
+        self.coopCount = 0
 
     def getID(self):
         return self.id

@@ -20,6 +20,7 @@ class BilateralClosedMixed():
         self.seed = seed
         BilateralClosedMixed.bot_number += 1
         self.id = BilateralClosedMixed.bot_number
+        self.coopCount = 0
     
     def getID(self):
         return self.id
@@ -36,6 +37,6 @@ class BilateralClosedMixed():
         self.opponentCommitProb = self.assumeOpponentCommit
 
     def inTurn(self, roundNum):
-        print(self.history)
+        #print(self.history)
         return self.mostCoopStrat.play(self.history, self.budget, roundNum)
     
