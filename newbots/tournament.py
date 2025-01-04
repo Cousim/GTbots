@@ -595,7 +595,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
 
         for i in range(playerCount):
             for n in range(playerCount):
-                if i < n:
+                if i != n:
                     #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralClosedDeterministicGame(
                     bots[i], 
@@ -643,6 +643,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
+
     
     elif gameType == 7:
         count = 0
@@ -667,7 +668,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
 
         for i in range(playerCount):
             for n in range(playerCount):
-                if i < n:
+                if i != n:
                     #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralClosedMixedGame(
                     bots[i], 
@@ -717,6 +718,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
 
+
     elif gameType == 8:
         count = 0
         for i in range(len(playerTypes)):
@@ -741,7 +743,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
 
         for i in range(playerCount):
             for n in range(playerCount):
-                if i < n:
+                if i != n:
                     #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOCostDeterministicGame(
                     bots[i], 
@@ -792,6 +794,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
 
+
     elif gameType == 9:
         count = 0
         for i in range(len(playerTypes)):
@@ -816,7 +819,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
 
         for i in range(playerCount):
             for n in range(playerCount):
-                if i < n:
+                if i != n:
                     #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOCostMixedGame(
                     bot1=bots[i], 
@@ -865,6 +868,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
 
+
     elif gameType == 10:
         count = 0
         for i in range(len(playerTypes)):
@@ -887,7 +891,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
 
         for i in range(playerCount):
             for n in range(playerCount):
-                if i < n:
+                if i != n:
                     #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOpenDeterministicGame(
                     bot1=bots[i], 
@@ -935,6 +939,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
 
+
     elif gameType == 11:
         count = 0
         for i in range(len(playerTypes)):
@@ -957,7 +962,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
 
         for i in range(playerCount):
             for n in range(playerCount):
-                if i < n:
+                if i != n:
                     #print("Game",count,"****************************************************************************************")
                     matchupInfo = UnilateralOpenMixedGame(
                     bot1=bots[i], 
@@ -1005,6 +1010,7 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
                     bot1PayoffMatrix = stringToDict(payoffs)
                     bot2PayoffMatrix = stringToDict(payoffs)
                     count += 1
+
 
     db_connection.commit()
 
