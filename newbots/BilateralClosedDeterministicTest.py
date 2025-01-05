@@ -1,3 +1,4 @@
+import time
 from bots.BilateralClosedDeterministic import BilateralClosedDeterministic
 from game.BilateralClosedDeterministicGame import BilateralClosedDeterministicGame
 
@@ -48,6 +49,14 @@ bilateralClosedDeterministicGame = BilateralClosedDeterministicGame(
     punishment=-1
 )
 
-# Run the game
+# Measure execution time
+start_time = time.time()
 bilateralClosedDeterministicGame.gametime()
+end_time = time.time()
+
+# Calculate elapsed time
+elapsed_time = end_time - start_time
+print(f"gametime execution took {elapsed_time:.4f} seconds")
+
+# Output matchup info
 print(bilateralClosedDeterministicGame.sendMatchupInfo())
