@@ -125,21 +125,21 @@ playerWeights7 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
 n = 0
 print((((n)/16)*100),"%")
-for bot in playerTypes1:
+for bot_idx in range(len(playerTypes1)):
     n += 1
     print((((n)/16)*100),"%")
     for i in range(11):
-        bot[5] = i*10
-        tournament("5h1: ",1,10,80,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
-    bot[5] = 50
+        playerTypes1[bot_idx][5] = i*10
+        tournament("5h1: " + str(bot_idx) + ", ",1,10,8,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
+    playerTypes1[bot_idx][5] = 50
 
-for bot in playerTypes7:
+for bot_idx in range(len(playerTypes7)):
     n += 1
     print((((n)/16)*100),"%")
     for i in range(11):
-        bot[5] = i*10
-        tournament("5h7: ",7,10,80,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
-    bot[5] = 50
+        playerTypes7[bot_idx][5] = i*10
+        tournament("5h7: " + str(bot_idx) + ", ",7,10,8,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
+    playerTypes7[bot_idx][5] = 50
 print("H5 Simulation is DONE!")
 
 
