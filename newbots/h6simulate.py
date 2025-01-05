@@ -34,8 +34,6 @@ from strategies.AlwaysCooperate import AlwaysCooperate
 from strategies.GenerousTitForTat import GenerousTitForTat
 from strategies.Randomized import Randomized
 
-
-
 titForTat = TitForTat()
 titForTwoTats = TitForTwoTats() 
 pavlov = Pavlov()

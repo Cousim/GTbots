@@ -15,4 +15,4 @@ class Randomized():
         return "randomized"
     
     def stratInt(self):
-        return 5
+        return 6
