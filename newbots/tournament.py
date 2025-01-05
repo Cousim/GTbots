@@ -59,85 +59,473 @@ grimTrigger = GrimTrigger()
 alwaysDefect = AlwaysDefect() 
 
 machine_identifier = "ktg"
-                #BilateralClosedDeterministic strategies, budget, coopCommitProb, assumeCommitProb, commitType, opponentCommitType
-playerTypes0 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,False, False]]
+                
+                #BilateralClosedDeterministic
+playerTypes0 = [[titForTwoTats,#strategies
+                 titForTat,
+                 pavlov,
+                 grimTrigger, 
+                 0,#budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 False,#commitType
+                 False],#opponentCommitType
+               [titForTwoTats,#strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 False, #commitType
+                 False],#opponentCommitType
+               [titForTwoTats,#strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 False, #commitType
+                 False],#opponentCommitType
+               [titForTwoTats,#strategies 
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 False, #commitType
+                 False]]#opponentCommitType
 playerWeights0 = [0.25,0.25,0.25,0.25]
-                #BilateralClosedMixed strategies, budget, coopCommitProb, assumeCommitProb, opponentCommitProb, seed
-playerTypes1 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 50, 100, 0, 2],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 0, 100, 0, 3],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, 4]]
+
+
+                #BilateralClosedMixed 
+playerTypes1 = [[titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 50, #coopCommitProb
+                 100, #assumeCommitProb
+                 0, #opponentCommitProb
+                 2],#seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100, #coopCommitProb
+                 100, #assumeCommitProb
+                 0, #opponentCommitProb
+                 1],#seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 0, #coopCommitProb
+                 100, #assumeCommitProb
+                 0, #opponentCommitProb
+                 3],#seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100, #coopCommitProb
+                 100,#assumeCommitProb
+                 0, #opponentCommitProb
+                 4]]#seed
 playerWeights1 = [0.25,0.25,0.25,0.25]
-                #BilateralOCostDeterministic strategies, budget, coopCommitProb, assumeCommitProb, payProb, commitType, opponentCoopCommitType
-playerTypes2 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,False, False]]
+
+                #BilateralOCostDeterministic 
+playerTypes2 = [[titForTwoTats, #strategies
+                 titForTat,
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100, #coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 False, #commitType
+                 False],#opponentCoopCommitType
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 False,# commitType
+                 False],#opponentCoopCommitType
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger,
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 False,# commitType
+                 False],#opponentCoopCommitType
+               [titForTwoTats, #strategies
+                 titForTat, #
+                 pavlov, #
+                 grimTrigger,# 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 False, #commitType
+                 False]]#opponentCoopCommitType
 playerWeights2 = [0.25,0.25,0.25,0.25]
-                #BilateralOCostMixed strategies, budget, coopCommitProb, assumeCommitProb, payProb, opponentCoopCommitProb, seed
-playerTypes3 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0]]
+
+                #BilateralOCostMixed
+playerTypes3 = [[titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 0, #opponentCoopCommitProb
+                 0],#seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 0, #opponentCoopCommitProb
+                 0],#seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 0, #opponentCoopCommitProb
+                 0],#seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, #budget
+                 100,#coopCommitProb
+                 100,#assumeCommitProb
+                 0,#payProb
+                 0, #opponentCoopCommitProb
+                 0]]#seed
 playerWeights3 = [0.25,0.25,0.25,0.25]
 
-                #BilateralOpenDeterministic, strategies, budget, coopCommitProb, commitType, opponentCoopCommitType
-playerTypes4 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, False, False]]
+                #BilateralOpenDeterministic 
+playerTypes4 = [[titForTwoTats, #strategies, 
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb,
+                 False, # commitType, 
+                 False],# opponentCoopCommitType
+               [titForTwoTats, #strategies, 
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb,
+                 False, # commitType, 
+                 False],# opponentCoopCommitType
+               [titForTwoTats, #strategies 
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb,
+                 False, # commitType, 
+                 False],# opponentCoopCommitType
+               [titForTwoTats,#strategies 
+                 titForTat,
+                 pavlov,
+                 grimTrigger,
+                 0, # budget
+                 100, # coopCommitProb,
+                 False, # commitType, 
+                 False]]# opponentCoopCommitType
 playerWeights4 = [0.25,0.25,0.25,0.25]
-                #BilateralOpenMixed, budget, coopCommitProb, opponentCoopCommitProb, seed
-playerTypes5 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0]]
+
+                #BilateralOpenMixed 
+playerTypes5 = [[titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0],# seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger,
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0],# seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0],# seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov,
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0]]# seed
 playerWeights5 = [0.25,0.25,0.25,0.25]
 
-
-                #UnilateralClosedDeterministic, strategies, budget, coopCommitProb, assumeCommitProb, commitType, opponentCoopCommitType
-playerTypes6 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, False, False]]
+                #UnilateralClosedDeterministic 
+playerTypes6 = [[titForTwoTats, #strategies
+                 titForTat,
+                 pavlov,
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, #  assumeCommitProb
+                 False, #  commitType
+                 False],# opponentCoopCommitType
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, #  assumeCommitProb
+                 False, #  commitType
+                 False],# opponentCoopCommitType
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, #  assumeCommitProb
+                 False, #  commitType
+                 False],# opponentCoopCommitType
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger,
+                 0, # budget
+                 100, # coopCommitProb
+                 100, #  assumeCommitProb
+                 False, #  commitType
+                 False]]# opponentCoopCommitType
 playerWeights6 = [0.25,0.25,0.25,0.25]
 
-                #UnilateralClosedMixed, strategies, budget, coopCommitProb, assumeOpponentCommitProb, opponentCoopCommitProb, seed
-playerTypes7 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 0]]
+                #UnilateralClosedMixed
+playerTypes7 = [[titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeOpponentCommitProb
+                 100, #  opponentCoopCommitProb
+                 0],#  seed
+               [titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov,
+                 grimTrigger,
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeOpponentCommitProb
+                 100, #  opponentCoopCommitProb
+                 0],#  seed
+               [titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeOpponentCommitProb
+                 100, #  opponentCoopCommitProb
+                 0],#  seed
+               [titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeOpponentCommitProb
+                 100, #  opponentCoopCommitProb
+                 0]]#  seed
 playerWeights7 = [0.25,0.25,0.25,0.25]
 
-                #UnilateralOCostDeterministic, strategies, budget, coopCommitProb, assumeCommitProb, payProb, commitType, opponentCoopCommitType
-playerTypes8 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0, True, False]]
+                #UnilateralOCostDeterministic 
+playerTypes8 = [[titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100,# coopCommitProb
+                 100, # assumeCommitProb
+                 0, # payProb
+                 True, # commitType
+                 False],# opponentCoopCommitType
+               [titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeCommitProb
+                 0, # payProb
+                 True, # commitType
+                 False],# opponentCoopCommitType
+               [titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeCommitProb
+                 0, # payProb
+                 True, # commitType
+                 False],# opponentCoopCommitType
+               [titForTwoTats, # strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeCommitProb
+                 0, # payProb
+                 True, # commitType
+                 False]]# opponentCoopCommitType
 playerWeights8 = [0.25,0.25,0.25,0.25]
 
-                #UnilateralOCostMixed, budget, coopCommitProb, assumeOppCommitProb, payProb, opponentCoopCommitProb, seed
-playerTypes9 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1],
-               [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 100, 100, 1]]
+                #UnilateralOCostMixed
+playerTypes9 = [[titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov,
+                 grimTrigger,
+                 0,# budget
+                 100,# coopCommitProb
+                 100,# assumeOppCommitProb
+                 100, # payProb
+                 100,# opponentCoopCommitProb
+                 1],# seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeOppCommitProb
+                 100, # payProb
+                 100, # opponentCoopCommitProb
+                 1],# seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100, # assumeOppCommitProb
+                 100, # payProb
+                 100, # opponentCoopCommitProb
+                 1],# seed
+               [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 100,# assumeOppCommitProb
+                 100,# payProb
+                 100, # opponentCoopCommitProb
+                 1]]# seed
 playerWeights9 = [0.25,0.25,0.25,0.25]
 
-                #UnilateralOpenDeterministic, budget, coopCommitProb, commitType, opponentCoopCommitType
-playerTypes10 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True],
-                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True],
-                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True],
-                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, True, True]]
+                #UnilateralOpenDeterministic
+playerTypes10 = [[titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 True, # commitType
+                 True],# opponentCoopCommitType
+                [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 True, # commitType
+                 True],# opponentCoopCommitType
+                [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100, # coopCommitProb
+                 True, # commitType
+                 True],# opponentCoopCommitType
+                [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget
+                 100,# coopCommitProb
+                 True, # commitType
+                 True]]# opponentCoopCommitType
 playerWeights10 = [0.25,0.25,0.25,0.25]
 
-                #UnilateralOpenMixed, budget, coopCommitProb, opponentCoopCommitProb, seed
-playerTypes11 = [[titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
-                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
-                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0],
-                [titForTwoTats, titForTat, pavlov, grimTrigger, 0, 100, 100, 0]]
+                #UnilateralOpenMixed
+playerTypes11 = [[titForTwoTats, #strategies
+                  titForTat, 
+                  pavlov,
+                 grimTrigger, 
+                 0, # budget 
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0],# seed
+                [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget 
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0],# seed
+                [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget 
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0],# seed
+                [titForTwoTats, #strategies
+                 titForTat, 
+                 pavlov, 
+                 grimTrigger, 
+                 0, # budget 
+                 100, # coopCommitProb
+                 100, # opponentCoopCommitProb
+                 0]]# seed
 playerWeights11 = [0.25,0.25,0.25,0.25]
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
