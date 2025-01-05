@@ -74,12 +74,7 @@ playerTypes1 = [[alwaysCooperate, titForTwoTats, titForTat, grimTrigger, 0, 50, 
                [alwaysDefect, titForTwoTats, grimTrigger, randomized, 0, 50, 100, 0, 3]]
 playerWeights1 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
-for bot in playerTypes1:
-    for i in range(11):
-        bot[5] = i*10
-        tournament("5h1: ",1,10,8,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
-        print("Tournament ended!")
-    bot[5] = 50
+
 
                 #BilateralOCostMixed strategies, budget, coopCommitProb, assumeCommitProb, payProb, opponentCoopCommitProb, seed
 #playerTypes3 = [[alwaysCooperate, titForTat, pavlov, grimTrigger, 0, 100,100,0,0, 0],
@@ -128,12 +123,24 @@ playerTypes7 = [[alwaysCooperate, titForTwoTats, titForTat, grimTrigger, 0, 50, 
                [alwaysDefect, titForTwoTats, grimTrigger, randomized, 0, 50, 100, 100, 0]]
 playerWeights7 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
-for bot in playerTypes7:
+n = 0
+print((((n)/16)*100),"%")
+for bot in playerTypes1:
+    n += 1
+    print((((n)/16)*100),"%")
     for i in range(11):
         bot[5] = i*10
-        tournament("5h7: ",7,10,8,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
-        print("Tournament ended!")
+        tournament("5h1: ",1,10,80,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
     bot[5] = 50
+
+for bot in playerTypes7:
+    n += 1
+    print((((n)/16)*100),"%")
+    for i in range(11):
+        bot[5] = i*10
+        tournament("5h7: ",7,10,80,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
+    bot[5] = 50
+print("H5 Simulation is DONE!")
 
 
                 #UnilateralOCostMixed, budget, coopCommitProb, assumeOppCommitProb, payProb, opponentCoopCommitProb, seed
