@@ -147,13 +147,36 @@ playerTypes7 = [[alwaysCooperate, titForTwoTats, titForTat, grimTrigger, 0, 50, 
                [alwaysDefect, titForTwoTats, grimTrigger, randomized, 0, 50, 50, 100, 0]]
 playerWeights7 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
+n = 0
+print((((n)/8)*100),"%")
+tournament("6h0: ",0,10,80,playerTypes0, playerWeights0, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
+tournament("6h1: ",1,10,80,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
+tournament("6h2: ",2,10,80,playerTypes2, playerWeights2, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
 
+tournament("6h4: ",4,10,80,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
 
-tournament("6h0: ",0,10,8,playerTypes0, playerWeights0, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h1: ",1,10,8,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h2: ",2,10,8,playerTypes2, playerWeights2, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h4: ",4,10,8,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h6: ",6,10,8,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h7: ",7,10,8,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h8: ",8,10,8,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0, 3)
-tournament("6h10: ",10,10,8,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0, 3)
+tournament("6h6: ",6,10,80,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
+
+tournament("6h7: ",7,10,80,playerTypes7, playerWeights7, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
+
+tournament("6h8: ",8,10,80,playerTypes8, playerWeights8, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
+
+tournament("6h10: ",10,10,80,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0, 3)
+n+=1
+print((((n)/8)*100),"%")
+
+print("H6 Simulation is DONE!")

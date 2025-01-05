@@ -73,15 +73,7 @@ playerTypes4 = [[pavlov, titForTwoTats, titForTat, grimTrigger, 0, 50, False, Fa
                [alwaysCooperate, titForTwoTats, grimTrigger, randomized, 0, 50, False, False]]
 playerWeights4 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
-for i in range(11):
-    print(i)
-    for bot in playerTypes0:
-        bot[6] = i*10
-    tournament("3h0: ",0,10,8,playerTypes0, playerWeights0, "CC3DC5CD0DD1", -1, 0, 0)
-    print("End of closed tournaments!")
 
-tournament("3h4: ", 4,10,8,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0, 0)
-print("End of open tournament!")
 
 #Bilateral Closed Mixed = 1, Bilateral Open Mixed = 5
                 #BilateralClosedMixed strategies, budget, coopCommitProb, assumeCommitProb, opponentCommitProb, seed
@@ -106,17 +98,6 @@ playerTypes5 = [[alwaysCooperate, titForTwoTats, titForTat, grimTrigger, 0, 50, 
                [alwaysDefect, titForTwoTats, grimTrigger, randomized, 0, 50, 0, 3]]
 playerWeights5 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
-
-for i in range(11):
-    print(i)
-    for bot in playerTypes1:
-        bot[6] = i*10
-    tournament("3h1: ",1,10,8,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -10, 0, 0)
-    print("End of closed tournaments!")
-
-tournament("3h5: ", 5,10,8,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -10, 0, 0)
-print("End of open tournament!")
-
 #UnilateralClosedDeterministic, strategies, budget, coopCommitProb, assumeCommitProb, commitType, opponentCoopCommitType
 playerTypes6 = [[pavlov, titForTwoTats, titForTat, grimTrigger, 0, 50, 100, False, False],
                [titForTwoTats, titForTat, grimTrigger, alwaysDefect, 0, 50, 100, False, False],
@@ -138,16 +119,6 @@ playerTypes10 = [[pavlov, titForTwoTats, titForTat, grimTrigger, 0, 50, False, F
                [alwaysCooperate, generousTitForTat, grimTrigger, randomized, 0, 50, False, False],
                [alwaysCooperate, titForTwoTats, grimTrigger, randomized, 0, 50, False, False]]
 playerWeights10 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
-
-for i in range(11):
-    print(i)
-    for bot in playerTypes6:
-        bot[6] = i*10
-    tournament("3h6: ",6,10,8,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0, 0)
-    print("End of closed tournaments!")
-
-tournament("3h10: ", 10 ,10,8,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0, 0)
-print("End of open tournament!")
 
 #Unilateral Closed Mixed = 7, Unilateral Open Mixed = 11
                 #UnilateralClosedMixed, strategies, budget, coopCommitProb, assumeOpponentCommitProb, opponentCoopCommitProb, seed
@@ -172,6 +143,37 @@ playerTypes11 = [[alwaysCooperate, titForTwoTats, titForTat, grimTrigger, 0, 50,
                [alwaysDefect, titForTwoTats, grimTrigger, randomized, 0, 50, 100, 0]]
 playerWeights11 = [0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125]
 
+
+
+for i in range(11):
+    print(i)
+    for bot in playerTypes0:
+        bot[6] = i*10
+    tournament("3h0: ",0,10,8,playerTypes0, playerWeights0, "CC3DC5CD0DD1", -1, 0, 0)
+    print("End of closed tournaments!")
+
+tournament("3h4: ", 4,10,8,playerTypes4, playerWeights4, "CC3DC5CD0DD1", -1, 0, 0)
+print("End of open tournament!")
+
+for i in range(11):
+    print(i)
+    for bot in playerTypes1:
+        bot[6] = i*10
+    tournament("3h1: ",1,10,8,playerTypes1, playerWeights1, "CC3DC5CD0DD1", -10, 0, 0)
+    print("End of closed tournaments!")
+
+tournament("3h5: ", 5,10,8,playerTypes5, playerWeights5, "CC3DC5CD0DD1", -10, 0, 0)
+print("End of open tournament!")
+
+for i in range(11):
+    print(i)
+    for bot in playerTypes6:
+        bot[6] = i*10
+    tournament("3h6: ",6,10,8,playerTypes6, playerWeights6, "CC3DC5CD0DD1", -1, 0, 0)
+    print("End of closed tournaments!")
+
+tournament("3h10: ", 10 ,10,8,playerTypes10, playerWeights10, "CC3DC5CD0DD1", -1, 0, 0)
+print("End of open tournament!")
 
 for i in range(11):
     print(i)
