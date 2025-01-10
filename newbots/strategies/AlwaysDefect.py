@@ -8,4 +8,4 @@ class AlwaysDefect():
         return "alwaysdefect"
     
     def stratInt(self):
-        return 6
+        return 7
