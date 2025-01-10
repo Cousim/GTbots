@@ -42,7 +42,7 @@ from database import queries
 db_connection = mysql.connector.connect(
   host="localhost",
   user="root",
-  passwd="zagorktg07", 
+  passwd="1234", 
   auth_plugin='mysql_native_password'
 )
 
