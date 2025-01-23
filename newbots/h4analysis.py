@@ -3,6 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from itertools import permutations
+import random
+from scipy.stats import ttest_ind, sem
+import statsmodels.stats.api as sms
 
 # Connect to MySQL database
 connection = mysql.connector.connect(
@@ -46,7 +49,7 @@ for player in players_data:
         print(f"Error parsing tournament_id '{tournament_id}': {e}")
         continue
 
-# Calculate average ranking for each permutation and player type
+# Calculate average ranking and perform statistical tests
 average_rankings = {str(i): {} for i in range(8)}
 
 for player_type, perms in rankings.items():
@@ -68,31 +71,61 @@ for player_type, perms in rankings.items():
 
             # Calculate the average ranking across all game types
             if total_rankings:
-                average_rankings[player_type][perm] = np.mean(total_rankings)
+                avg = np.mean(total_rankings)
+                confidence = sms.DescrStatsW(total_rankings).tconfint_mean()  # Confidence interval
+                average_rankings[player_type][perm] = {
+                    "average": avg,
+                    "confidence_interval": confidence,
+                    "rankings": total_rankings
+                }
             else:
-                average_rankings[player_type][perm] = 0
+                average_rankings[player_type][perm] = {"average": 0, "confidence_interval": (0, 0), "rankings": []}
         else:
-            average_rankings[player_type][perm] = 0  # Default to 0 if no data
+            average_rankings[player_type][perm] = {"average": 0, "confidence_interval": (0, 0), "rankings": []}
+
+# Perform pairwise statistical tests
+p_values = {}
+for player_type, perms in average_rankings.items():
+    for perm1, data1 in perms.items():
+        for perm2, data2 in perms.items():
+            if perm1 < perm2:  # Avoid redundant comparisons
+                _, p_value = ttest_ind(data1["rankings"], data2["rankings"], equal_var=False, nan_policy='omit')
+                p_values[f"{perm1} vs {perm2}"] = p_value
+
+# Generate a unique color for each graph
+color_palette = ["darkblue", "gold"]
 
 # Plot the results for each player type
 for player_type, perms in average_rankings.items():
     perms_sorted = sorted(perms.keys())  # Ensure permutations are sorted
-    avg_ranks = [perms[perm] for perm in perms_sorted]
+    avg_ranks = [perms[perm]["average"] for perm in perms_sorted]
+    conf_intervals = [perms[perm]["confidence_interval"] for perm in perms_sorted]
+
+    # Assign a unique color for the current graph
+    graph_color = color_palette[int(player_type) % len(color_palette)]
 
     plt.figure(figsize=(12, 6))
-    bars = plt.bar(perms_sorted, avg_ranks, color='skyblue')
+    bars = plt.bar(perms_sorted, avg_ranks, color=graph_color)
     plt.xlabel('Permutations')
     plt.ylabel('Average Ranking (Lower is Better)')
     plt.title(f'Average Ranking for Player Type {player_type}')
     plt.xticks(rotation=90)
 
-    # Add exact average ranking on top of each bar
-    for bar, avg_rank in zip(bars, avg_ranks):
+    # Add confidence intervals and exact values
+    for bar, avg_rank, conf_int in zip(bars, avg_ranks, conf_intervals):
+        plt.errorbar(bar.get_x() + bar.get_width() / 2, avg_rank, 
+                     yerr=[[avg_rank - conf_int[0]], [conf_int[1] - avg_rank]], 
+                     fmt='none', capsize=5, color='black')
         plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.1, f'{avg_rank:.2f}', 
                  ha='center', va='bottom', fontsize=8)
 
     plt.tight_layout()
     plt.show()
+
+# Print p-values for comparisons
+print("Pairwise P-Values:")
+for comparison, p_value in p_values.items():
+    print(f"{comparison}: p = {p_value:.4f}")
 
 # Close the database connection
 cursor.close()

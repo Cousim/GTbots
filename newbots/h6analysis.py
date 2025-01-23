@@ -1,13 +1,13 @@
 import mysql.connector
 import pandas as pd
-
 import matplotlib.pyplot as plt
-import seaborn as sns
+from scipy.stats import ttest_ind, sem
+import numpy as np
 
 connection = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="zagorktg07",
+    password="1234",
     database="gametheory"
 )
 
@@ -56,6 +56,25 @@ for prefix1, prefix2, title1, title2 in tournament_pairs:
     if avg_ranking1 is None or avg_ranking2 is None:
         print(f"No data found for pair {title1} and {title2}")
         continue
+
+    # Perform t-test and compute confidence interval
+    combined_types = set(avg_ranking1['player_type']).intersection(set(avg_ranking2['player_type']))
+    ranks1 = avg_ranking1[avg_ranking1['player_type'].isin(combined_types)]['rank'].values
+    ranks2 = avg_ranking2[avg_ranking2['player_type'].isin(combined_types)]['rank'].values
+
+    t_stat, p_value = ttest_ind(ranks1, ranks2, equal_var=False)  # Welch's t-test for unequal variance
+    confidence_level = 0.95
+    n1, n2 = len(ranks1), len(ranks2)
+    se_diff = np.sqrt(sem(ranks1)**2 + sem(ranks2)**2)
+    margin_of_error = se_diff * 1.96  # 1.96 for 95% confidence level
+    mean_diff = ranks1.mean() - ranks2.mean()
+    ci_low, ci_high = mean_diff - margin_of_error, mean_diff + margin_of_error
+
+    # Print statistics
+    print(f"\nComparison: {title1} vs {title2}")
+    print(f"t-statistic: {t_stat:.3f}, p-value: {p_value:.3f}")
+    print(f"Mean difference: {mean_diff:.2f}")
+    print(f"95% Confidence Interval: ({ci_low:.2f}, {ci_high:.2f})")
 
     # Print rankings and sums
     print(f"Average Rankings for {title1}:")
