@@ -546,8 +546,8 @@ def tournament(HID, gameType, gameLength, playerCount, playerTypes, playerWeight
     if tourCount == None:
         tourCount = 0
 
-    tournamentID = HID + str(tourCount)
-    db_cursor.execute(queries.insertTournament, (tournamentID, gameType, gameLength, payoffs, punishment, reward, observationCost))
+    tournamentID = HID 
+    db_cursor.execute(queries.insertTournament, (HID, gameType, gameLength, payoffs, punishment, reward, observationCost))
 
     bots = []
 

@@ -18,6 +18,7 @@ class UnilateralOCostMixed():
         UnilateralOCostMixed.bot_number += 1
         self.id = UnilateralOCostMixed.bot_number
         self.coopCount = 0
+        self.seed = seed
 
     def getID(self):
         return self.id

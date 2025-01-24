@@ -31,7 +31,7 @@ db_cursor.execute("USE gametheory")
 
  # Each table is returned as a tuple
 
-db_cursor.execute("SHOW TABLES")
+#db_cursor.execute("SHOW TABLES")
 
 
 #may change size of payoffs
